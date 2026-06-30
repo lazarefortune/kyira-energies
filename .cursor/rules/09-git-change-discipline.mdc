@@ -1,0 +1,15 @@
+---
+description: Change management rules for safe edits, mini modifications, refactors, and summaries.
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Change discipline
+
+- For mini modifications, touch the fewest files possible.
+- Do not perform broad refactors while fixing a small issue.
+- Preserve existing architecture unless asked to propose a better one.
+- Before deleting code, verify it is unused or explain the risk.
+- After changes, summarize what changed, why, and which files were affected.
+- Mention any follow-up manual checks, missing data, or production risks.
+- If the requested change conflicts with security, accessibility, SEO, performance, or maintainability, say it clearly before coding.

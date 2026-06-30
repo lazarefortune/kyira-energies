@@ -1,0 +1,18 @@
+---
+description: Contact form, API route, validation, anti-spam, privacy, and security rules.
+globs: ["app/api/**/*.{ts,tsx}", "app/**/*action*.{ts,tsx}", "components/**/*Form*.{ts,tsx}", "lib/**/*.{ts,tsx}"]
+alwaysApply: false
+---
+
+# Forms and security
+
+- Never trust client-side input. Validate again on the server.
+- Use a schema validation library such as Zod for form payloads when validation logic is added.
+- Keep contact forms minimal: collect only what is needed to respond to the request.
+- Add anti-spam protection before production: honeypot, rate limiting, or a trusted captcha alternative if needed.
+- Never expose SMTP credentials or API keys to the client bundle.
+- Return safe error messages. Do not leak stack traces, provider errors, or internal details.
+- Normalize and trim user input before processing.
+- Do not log personal data unless needed for debugging, and never leave sensitive logs in production.
+- Use clear success, loading, and error states.
+- Make form fields accessible with labels, validation messages, and keyboard support.

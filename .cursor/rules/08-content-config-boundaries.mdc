@@ -1,0 +1,16 @@
+---
+description: Rules for centralized content, configuration, placeholders, and client-specific data.
+globs: ["content/**/*.{ts,tsx,json}", "lib/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"]
+alwaysApply: false
+---
+
+# Content and configuration boundaries
+
+- Store landing content in centralized files, not scattered across components.
+- Keep unknown client information as explicit placeholders, for example `TODO: confirm certification`.
+- Do not invent contact details, certifications, partners, client references, legal details, results, or statistics.
+- Make optional sections easy to hide when the client has not provided proof yet.
+- Keep content structures typed so missing required fields are caught early.
+- Separate content from presentation: components render data, content files define text and values.
+- Use clear keys and labels that make future client edits easy.
+- Avoid coupling layout behavior to exact sentence length.

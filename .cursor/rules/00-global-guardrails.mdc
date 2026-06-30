@@ -1,0 +1,16 @@
+---
+description: Core coding guardrails for the KYIRA ENERGIES website project.
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# Global guardrails
+
+- Make the smallest safe change that solves the requested problem.
+- Do not rewrite, refactor, rename, or reorganize unrelated files unless explicitly asked.
+- Before non-trivial changes, explain the plan and the files that will be touched.
+- Never invent business facts about KYIRA ENERGIES. Use placeholders or TODOs for unknown data.
+- Keep code readable, typed, maintainable, and easy to modify after client feedback.
+- Do not add dependencies unless they clearly reduce complexity or risk.
+- Never expose secrets, API keys, SMTP credentials, tokens, or private client data in source code.
+- Prefer simple, boring, production-ready code over clever abstractions.

@@ -1,0 +1,18 @@
+---
+description: Naming, TypeScript style, imports, and project conventions.
+globs: ["**/*.{ts,tsx,js,jsx,json}"]
+alwaysApply: false
+---
+
+# Naming and style
+
+- Use TypeScript for application code.
+- Use `camelCase` for variables, functions, hooks, and local constants.
+- Use `PascalCase` for React components, types, interfaces, and classes.
+- Use `UPPER_SNAKE_CASE` for environment variable names and immutable global constants.
+- Use named exports by default. Use default exports only for Next.js conventions such as `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, and route handlers when required.
+- Keep imports ordered: external packages, internal aliases, relative imports, styles.
+- Avoid `any`. If a type is unknown, use `unknown` and narrow it safely.
+- Avoid magic values. Extract repeated values into constants or data objects.
+- Remove dead code, unused imports, unused variables, and obsolete comments.
+- Write comments only when they explain why something exists, not what the code obviously does.

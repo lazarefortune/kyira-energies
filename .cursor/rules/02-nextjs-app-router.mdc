@@ -1,0 +1,17 @@
+---
+description: Next.js App Router conventions for pages, layouts, metadata, server components, and route handlers.
+globs: ["app/**/*.{ts,tsx}", "next.config.*", "middleware.ts"]
+alwaysApply: false
+---
+
+# Next.js App Router rules
+
+- Use the App Router conventions: `app/page.tsx`, `app/layout.tsx`, `app/api/**/route.ts`.
+- Prefer Server Components by default. Add `"use client"` only when state, effects, browser APIs, or event handlers are needed.
+- Do not use `window`, `document`, `localStorage`, or browser-only APIs in Server Components.
+- Keep pages thin. Move reusable UI to `components/` and reusable data to `content/` or `lib/`.
+- Use the Next.js Metadata API for titles, descriptions, Open Graph, canonical URLs, and robots settings.
+- Use `next/image` for images and `next/font` for fonts when possible.
+- Keep route handlers server-only. Validate all request data before using it.
+- Do not mix unrelated concerns in a page file. Split sections into dedicated components.
+- Avoid unnecessary client-side JavaScript for static landing sections.

@@ -1,0 +1,18 @@
+---
+description: Tailwind CSS styling conventions, responsive design, spacing, and visual consistency.
+globs: ["app/**/*.{tsx,css}", "components/**/*.{tsx,css}", "tailwind.config.*", "postcss.config.*"]
+alwaysApply: false
+---
+
+# Styling and Tailwind
+
+- Use Tailwind CSS as the primary styling system.
+- Keep the visual style sober, professional, B2B, and credible.
+- Use consistent spacing, typography, border radius, shadows, and container widths.
+- Prefer reusable UI primitives for buttons, cards, inputs, badges, and section headings.
+- Avoid random arbitrary values unless there is a clear reason.
+- Do not use inline styles except for truly dynamic values.
+- Design mobile-first, then enhance for tablet and desktop.
+- Maintain strong contrast and readable font sizes.
+- Avoid excessive animations, gradients, glassmorphism, or decorative effects that reduce trust.
+- Keep responsive classes intentional and test common widths: mobile, tablet, laptop, desktop.

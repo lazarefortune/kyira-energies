@@ -1,0 +1,17 @@
+---
+description: React component architecture, props, composition, and component quality.
+globs: ["components/**/*.{ts,tsx}", "app/**/*.{ts,tsx}"]
+alwaysApply: false
+---
+
+# React components
+
+- Keep components focused on one responsibility.
+- Prefer composition over large configurable components with too many props.
+- Type all component props explicitly.
+- Use semantic HTML first: `section`, `header`, `main`, `footer`, `nav`, `article`, `form`, `button`.
+- Use accessible buttons and links correctly: buttons trigger actions, links navigate.
+- Avoid unnecessary `useEffect`. Derive values directly when possible.
+- Avoid duplicated markup. Extract small reusable components when repetition becomes noisy.
+- Keep section components easy to reorder or remove because the client may change the landing structure.
+- Do not hard-code contact details, certification names, client references, or legal data inside UI components. Read them from centralized content/config.

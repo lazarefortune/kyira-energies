@@ -1,0 +1,18 @@
+---
+description: SEO, accessibility, semantic HTML, Core Web Vitals, and performance rules.
+globs: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "lib/seo*.{ts,tsx}"]
+alwaysApply: false
+---
+
+# SEO, accessibility, and performance
+
+- Use one clear `h1` per page and a logical heading hierarchy.
+- Write semantic HTML before adding custom div-based layouts.
+- Every meaningful image needs useful `alt` text. Decorative images should use empty alt text.
+- Use descriptive link and button labels. Avoid vague labels such as "click here".
+- Keep the landing page fast: avoid heavy libraries, large images, and unnecessary client components.
+- Optimize images with correct dimensions, modern formats, and lazy loading where appropriate.
+- Preserve keyboard navigation and visible focus states.
+- Ensure color contrast is readable on all backgrounds.
+- Add page metadata: title, description, Open Graph, favicon, and canonical URL when available.
+- Do not add animations that block interaction, harm accessibility, or hurt performance.

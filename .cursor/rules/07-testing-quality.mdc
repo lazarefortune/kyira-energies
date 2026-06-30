@@ -1,0 +1,17 @@
+---
+description: Quality checks, testing expectations, linting, and regression prevention.
+globs: ["**/*.{ts,tsx,js,jsx}", "**/*test*.{ts,tsx}", "**/__tests__/**/*"]
+alwaysApply: false
+---
+
+# Testing and quality
+
+- For logic changes, add or update tests when the project has a test setup.
+- For UI-only changes without tests, explain the manual checks to perform.
+- Do not remove existing tests unless they are obsolete and the reason is clear.
+- Keep tests focused on behavior, not implementation details.
+- Run or recommend the relevant checks after changes: typecheck, lint, build, and tests.
+- Fix TypeScript, lint, and build errors instead of hiding them.
+- Do not silence errors with `// @ts-ignore`, `eslint-disable`, or broad casts unless there is a strong documented reason.
+- When modifying shared components, check likely impacted pages and states.
+- Preserve existing public behavior unless the requested change explicitly alters it.
