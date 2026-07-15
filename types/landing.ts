@@ -99,6 +99,24 @@ export type TrustContent = {
   items: TrustItem[];
 };
 
+export type TestimonialItem = {
+  title: string;
+  quote: string;
+  author: string;
+  role: string;
+  initials: string;
+};
+
+export type TestimonialsContent = {
+  id: string;
+  watermark: string;
+  /** Placeholder statistic — replace with a confirmed client volume before publish. */
+  statValue: string;
+  statSuffix: string;
+  statLabel: string;
+  items: TestimonialItem[];
+};
+
 export type FAQItem = {
   question: string;
   answer: string;
@@ -180,6 +198,7 @@ export type SiteContent = {
   services: ServicesContent;
   method: MethodContent;
   sectors: SectorsContent;
+  testimonials: TestimonialsContent;
   faq: FAQContent;
   contact: ContactContent;
   footer: FooterContent;

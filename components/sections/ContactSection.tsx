@@ -6,9 +6,12 @@ import { landingContent } from "@/content/landing";
 import { ContactForm } from "@/components/sections/ContactForm";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
-const viewport = { once: false, amount: 0.2 } as const;
+import {
+  easeOut,
+  motionDelay,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 
 function ContactTitle({ title, accent }: { title: string; accent: string }) {
   if (!title.includes(accent)) {
@@ -35,13 +38,13 @@ export function ContactSection() {
   const fadeUp = {
     hidden: {
       opacity: 0,
-      y: prefersReducedMotion ? 0 : 28,
+      y: 28,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.55,
+        duration: motionDuration(prefersReducedMotion, 0.55),
         ease: easeOut,
       },
     },
@@ -50,13 +53,13 @@ export function ContactSection() {
   const fadeLeft = {
     hidden: {
       opacity: 0,
-      x: prefersReducedMotion ? 0 : -32,
+      x: -32,
     },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
+        duration: motionDuration(prefersReducedMotion, 0.6),
         ease: easeOut,
       },
     },
@@ -65,13 +68,13 @@ export function ContactSection() {
   const fadeRight = {
     hidden: {
       opacity: 0,
-      x: prefersReducedMotion ? 0 : 32,
+      x: 32,
     },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
+        duration: motionDuration(prefersReducedMotion, 0.6),
         ease: easeOut,
       },
     },
@@ -81,8 +84,8 @@ export function ContactSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
-        delayChildren: prefersReducedMotion ? 0 : 0.08,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.1),
+        delayChildren: motionDelay(prefersReducedMotion, 0.08),
       },
     },
   };
@@ -116,7 +119,7 @@ export function ContactSection() {
             className="min-w-0 max-w-2xl"
             initial="hidden"
             whileInView="visible"
-            viewport={viewport}
+            viewport={motionViewport}
             variants={staggerContainer}
           >
             <motion.p
@@ -147,7 +150,7 @@ export function ContactSection() {
             className="min-w-0 w-full"
             initial="hidden"
             whileInView="visible"
-            viewport={viewport}
+            viewport={motionViewport}
             variants={fadeRight}
           >
             <Card

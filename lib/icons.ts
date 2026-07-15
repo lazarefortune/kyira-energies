@@ -21,9 +21,11 @@ import {
   Mail01Icon,
   MailSend01Icon,
   OfficeIcon,
+  QuoteUpIcon,
   SaveEnergy01Icon,
   Search01Icon,
   Settings02Icon,
+  SmileIcon,
   Store01Icon,
   SystemUpdate01Icon,
   Tick02Icon,
@@ -73,6 +75,8 @@ export const aboutHighlightIcon = Check;
 export const heroEyebrowIcon = EnergyIcon;
 export const ctaArrowIcon = ArrowRight01Icon;
 export const backArrowIcon = ArrowLeft01Icon;
+export const testimonialSmileIcon = SmileIcon;
+export const testimonialQuoteIcon = QuoteUpIcon;
 
 export const contactFormLoadingIcon = Loading03Icon;
 export const contactFormSendingIcon = MailSend01Icon;

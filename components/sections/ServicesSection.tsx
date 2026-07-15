@@ -8,11 +8,13 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { ctaArrowIcon, serviceIcons } from "@/lib/icons";
+import {
+  easeOut,
+  motionDelay,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 import { cn } from "@/lib/utils";
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
-
-const viewport = { once: false, amount: 0.2 } as const;
 
 export function ServicesSection() {
   const { services } = landingContent;
@@ -21,13 +23,13 @@ export function ServicesSection() {
   const fadeUp = {
     hidden: {
       opacity: 0,
-      y: prefersReducedMotion ? 0 : 28,
+      y: 28,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.55,
+        duration: motionDuration(prefersReducedMotion, 0.55),
         ease: easeOut,
       },
     },
@@ -37,8 +39,8 @@ export function ServicesSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
-        delayChildren: prefersReducedMotion ? 0 : 0.05,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.1),
+        delayChildren: motionDelay(prefersReducedMotion, 0.05),
       },
     },
   };
@@ -47,8 +49,8 @@ export function ServicesSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.12,
-        delayChildren: prefersReducedMotion ? 0 : 0.15,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.12),
+        delayChildren: motionDelay(prefersReducedMotion, 0.15),
       },
     },
   };
@@ -64,7 +66,7 @@ export function ServicesSection() {
           className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start"
           initial="hidden"
           whileInView="visible"
-          viewport={viewport}
+          viewport={motionViewport}
           variants={staggerContainer}
         >
           <motion.div
@@ -93,7 +95,7 @@ export function ServicesSection() {
           className="mt-12 mb-24 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8"
           initial="hidden"
           whileInView="visible"
-          viewport={viewport}
+          viewport={motionViewport}
           variants={cardStagger}
         >
           {services.items.map((item, index) => (
@@ -140,13 +142,13 @@ export function ServicesSection() {
 
         <motion.div
           className="mt-12 flex justify-center"
-          initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 20 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={viewport}
+          viewport={motionViewport}
           transition={{
-            duration: prefersReducedMotion ? 0 : 0.5,
+            duration: motionDuration(prefersReducedMotion, 0.5),
             ease: easeOut,
-            delay: prefersReducedMotion ? 0 : 0.2,
+            delay: motionDelay(prefersReducedMotion, 0.2),
           }}
         >
           <Button href={services.cta.href} variant="secondary" size="lg">

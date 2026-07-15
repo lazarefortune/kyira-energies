@@ -14,10 +14,13 @@ import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { methodIcons } from "@/lib/icons";
+import {
+  easeOut,
+  motionDelay,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 import type { MethodStep } from "@/types/landing";
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
-const viewport = { once: false, amount: 0.2 } as const;
 
 const stepperVariants = {
   unlit: {
@@ -155,7 +158,7 @@ const MethodTimelineStep = forwardRef<
           animate={isLit ? "lit" : "unlit"}
           variants={stepperVariants}
           transition={{
-            duration: prefersReducedMotion ? 0 : 0.45,
+            duration: motionDuration(prefersReducedMotion, 0.45),
             ease: easeOut,
           }}
           className="relative z-10 flex size-10 items-center justify-center rounded-full border-2 text-xs font-semibold"
@@ -171,7 +174,7 @@ const MethodTimelineStep = forwardRef<
               initial={false}
               animate={{ scaleY: isSegmentLit ? 1 : 0 }}
               transition={{
-                duration: prefersReducedMotion ? 0 : 0.5,
+                duration: motionDuration(prefersReducedMotion, 0.5),
                 ease: easeOut,
               }}
               aria-hidden
@@ -220,7 +223,7 @@ function MethodMobileTimeline({
       className="relative mt-12 lg:hidden"
       initial="hidden"
       whileInView="visible"
-      viewport={viewport}
+      viewport={motionViewport}
       variants={columnStagger}
       aria-label="Étapes de la méthode"
     >
@@ -252,13 +255,13 @@ export function MethodSection() {
   const fadeUp = {
     hidden: {
       opacity: 0,
-      y: prefersReducedMotion ? 0 : 28,
+      y: 28,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.55,
+        duration: motionDuration(prefersReducedMotion, 0.55),
         ease: easeOut,
       },
     },
@@ -267,13 +270,13 @@ export function MethodSection() {
   const fadeLeft = {
     hidden: {
       opacity: 0,
-      x: prefersReducedMotion ? 0 : -32,
+      x: -32,
     },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.55,
+        duration: motionDuration(prefersReducedMotion, 0.55),
         ease: easeOut,
       },
     },
@@ -282,13 +285,13 @@ export function MethodSection() {
   const fadeRight = {
     hidden: {
       opacity: 0,
-      x: prefersReducedMotion ? 0 : 32,
+      x: 32,
     },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.55,
+        duration: motionDuration(prefersReducedMotion, 0.55),
         ease: easeOut,
       },
     },
@@ -297,13 +300,13 @@ export function MethodSection() {
   const fadeScale = {
     hidden: {
       opacity: 0,
-      scale: prefersReducedMotion ? 1 : 0.96,
+      scale: 0.96,
     },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.65,
+        duration: motionDuration(prefersReducedMotion, 0.65),
         ease: easeOut,
       },
     },
@@ -313,8 +316,8 @@ export function MethodSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
-        delayChildren: prefersReducedMotion ? 0 : 0.05,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.1),
+        delayChildren: motionDelay(prefersReducedMotion, 0.05),
       },
     },
   } satisfies Variants;
@@ -323,8 +326,8 @@ export function MethodSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.12,
-        delayChildren: prefersReducedMotion ? 0 : 0.1,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.12),
+        delayChildren: motionDelay(prefersReducedMotion, 0.1),
       },
     },
   } satisfies Variants;
@@ -333,8 +336,8 @@ export function MethodSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.15,
-        delayChildren: prefersReducedMotion ? 0 : 0.15,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.15),
+        delayChildren: motionDelay(prefersReducedMotion, 0.15),
       },
     },
   } satisfies Variants;
@@ -350,7 +353,7 @@ export function MethodSection() {
           className="mx-auto max-w-3xl text-center"
           initial="hidden"
           whileInView="visible"
-          viewport={viewport}
+          viewport={motionViewport}
           variants={headerStagger}
         >
           <motion.p
@@ -388,7 +391,7 @@ export function MethodSection() {
           className="mt-12 hidden gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(240px,300px)_minmax(0,1fr)] lg:items-stretch lg:gap-8"
           initial="hidden"
           whileInView="visible"
-          viewport={viewport}
+          viewport={motionViewport}
           variants={gridStagger}
         >
           <motion.div className="flex flex-col gap-6" variants={columnStagger}>

@@ -4,8 +4,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { Button } from "@/components/ui/Button";
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
+import { easeOut, motionDuration } from "@/lib/motion";
 
 type CookieConsentBannerProps = {
   isVisible: boolean;
@@ -33,21 +32,21 @@ export function CookieConsentBanner({
           className="fixed inset-x-0 bottom-0 z-60 p-4 sm:p-6"
           initial={{
             opacity: 0,
-            y: prefersReducedMotion ? 0 : 28,
+            y: 28,
           }}
           animate={{
             opacity: 1,
             y: 0,
             transition: {
-              duration: prefersReducedMotion ? 0 : 0.45,
+              duration: motionDuration(prefersReducedMotion, 0.45),
               ease: easeOut,
             },
           }}
           exit={{
             opacity: 0,
-            y: prefersReducedMotion ? 0 : 16,
+            y: 16,
             transition: {
-              duration: prefersReducedMotion ? 0 : 0.25,
+              duration: motionDuration(prefersReducedMotion, 0.25),
               ease: easeOut,
             },
           }}

@@ -6,9 +6,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { applyAnalyticsConsent } from "@/lib/analytics";
 import { getConsent, type CookieConsentValue } from "@/lib/consent";
+import { easeOut, motionDuration } from "@/lib/motion";
 import { cn } from "@/lib/utils";
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
 
 type CookiePreferencesModalProps = {
   isOpen: boolean;
@@ -87,13 +86,13 @@ function CookiePreferencesModalContent({
       animate={{
         opacity: 1,
         transition: {
-          duration: prefersReducedMotion ? 0 : 0.2,
+          duration: motionDuration(prefersReducedMotion, 0.2),
         },
       }}
       exit={{
         opacity: 0,
         transition: {
-          duration: prefersReducedMotion ? 0 : 0.15,
+          duration: motionDuration(prefersReducedMotion, 0.15),
         },
       }}
     >
@@ -112,21 +111,21 @@ function CookiePreferencesModalContent({
         className="relative z-10 w-full max-w-lg overflow-hidden rounded-xl border border-border bg-white shadow-[0_16px_48px_rgba(21,46,75,0.18)]"
         initial={{
           opacity: 0,
-          y: prefersReducedMotion ? 0 : 20,
+          y: 20,
         }}
         animate={{
           opacity: 1,
           y: 0,
           transition: {
-            duration: prefersReducedMotion ? 0 : 0.35,
+            duration: motionDuration(prefersReducedMotion, 0.35),
             ease: easeOut,
           },
         }}
         exit={{
           opacity: 0,
-          y: prefersReducedMotion ? 0 : 12,
+          y: 12,
           transition: {
-            duration: prefersReducedMotion ? 0 : 0.2,
+            duration: motionDuration(prefersReducedMotion, 0.2),
             ease: easeOut,
           },
         }}

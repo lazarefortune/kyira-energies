@@ -147,6 +147,34 @@ export const landingContent: SiteContent = {
     ],
   },
 
+  // Placeholders illustratifs — à remplacer par des avis clients confirmés.
+  testimonials: {
+    id: "avis",
+    watermark: "avis",
+    // TODO: confirmer le volume clients avant publication
+    statValue: "24",
+    statSuffix: "+",
+    statLabel: "clients satisfaits",
+    items: [
+      {
+        title: "Approche claire",
+        quote:
+          "L'étude de potentiel a rapidement mis en évidence la chaleur récupérable sur nos groupes de froid. La proposition était concrète, chiffrée et adaptée à nos contraintes de site.",
+        author: "Claire M.",
+        role: "Responsable technique · commerce",
+        initials: "CM",
+      },
+      {
+        title: "Accompagnement fluide",
+        quote:
+          "De l'analyse initiale au suivi de mise en œuvre, l'échange a été simple et professionnel. Nous valorisons désormais une énergie jusqu'alors perdue pour nos besoins en eau chaude.",
+        author: "Julien R.",
+        role: "Directeur d'exploitation · hôtellerie",
+        initials: "JR",
+      },
+    ],
+  },
+
   faq: {
     id: "faq",
     eyebrow: "Questions fréquentes",

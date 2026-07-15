@@ -7,9 +7,12 @@ import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "../ui/Icon";
 import { aboutHighlightIcon } from "@/lib/icons";
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
-const viewport = { once: false, amount: 0.2 } as const;
+import {
+  easeOut,
+  motionDelay,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 
 function AboutTitle({ title, accent }: { title: string; accent: string }) {
   if (!title.includes(accent)) {
@@ -36,13 +39,13 @@ export function AboutSection() {
   const fadeUp = {
     hidden: {
       opacity: 0,
-      y: prefersReducedMotion ? 0 : 28,
+      y: 28,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.55,
+        duration: motionDuration(prefersReducedMotion, 0.55),
         ease: easeOut,
       },
     },
@@ -51,13 +54,13 @@ export function AboutSection() {
   const fadeRight = {
     hidden: {
       opacity: 0,
-      x: prefersReducedMotion ? 0 : -32,
+      x: -32,
     },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
+        duration: motionDuration(prefersReducedMotion, 0.6),
         ease: easeOut,
       },
     },
@@ -67,8 +70,8 @@ export function AboutSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
-        delayChildren: prefersReducedMotion ? 0 : 0.08,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.1),
+        delayChildren: motionDelay(prefersReducedMotion, 0.08),
       },
     },
   };
@@ -77,8 +80,8 @@ export function AboutSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.08,
-        delayChildren: prefersReducedMotion ? 0 : 0.2,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.08),
+        delayChildren: motionDelay(prefersReducedMotion, 0.2),
       },
     },
   };
@@ -95,7 +98,7 @@ export function AboutSection() {
             className="relative mx-auto w-full lg:mx-0"
             initial="hidden"
             whileInView="visible"
-            viewport={viewport}
+            viewport={motionViewport}
             variants={fadeRight}
           >
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
@@ -115,7 +118,7 @@ export function AboutSection() {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={viewport}
+            viewport={motionViewport}
             variants={staggerContainer}
           >
             <motion.p

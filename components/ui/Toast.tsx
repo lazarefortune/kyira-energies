@@ -15,6 +15,7 @@ import {
   contactFormSuccessIcon,
   toastCloseIcon,
 } from "@/lib/icons";
+import { easeOut, motionDuration } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 type ToastVariant = "success" | "error";
@@ -34,7 +35,6 @@ type ToastContextValue = {
 const ToastContext = createContext<ToastContextValue | null>(null);
 
 const AUTO_DISMISS_MS = 5200;
-const easeOut = [0.22, 1, 0.36, 1] as const;
 
 let toastId = 0;
 
@@ -68,16 +68,19 @@ function ToastCard({
       aria-live="polite"
       initial={{
         opacity: 0,
-        y: prefersReducedMotion ? 0 : -16,
-        scale: prefersReducedMotion ? 1 : 0.96,
+        y: -16,
+        scale: 0.96,
       }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{
         opacity: 0,
-        y: prefersReducedMotion ? 0 : -10,
-        scale: prefersReducedMotion ? 1 : 0.98,
+        y: -10,
+        scale: 0.98,
       }}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.35, ease: easeOut }}
+      transition={{
+        duration: motionDuration(prefersReducedMotion, 0.35),
+        ease: easeOut,
+      }}
       className={cn(
         "pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-xl border bg-white px-4 py-3.5 shadow-[0_12px_40px_rgba(21,46,75,0.16)] ring-1 ring-black/5",
         isSuccess

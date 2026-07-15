@@ -5,6 +5,7 @@ import { PostHogProvider } from "@/components/analytics/PostHogProvider";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { MotionProvider } from "@/components/ui/MotionProvider";
 import { ToastProvider } from "@/components/ui/Toast";
 import { landingContent } from "@/content/landing";
 import { archivo, editorialNew, geistMono, manrope } from "@/lib/fonts";
@@ -34,13 +35,15 @@ export default function RootLayout({
         className={`${manrope.className} flex min-h-full flex-col bg-background font-sans font-normal text-foreground antialiased`}
       >
         <PostHogProvider>
-          <ToastProvider>
-            <Header />
-            {children}
-            <Footer />
-            <BackToTop />
-            <CookieConsentManager />
-          </ToastProvider>
+          <MotionProvider>
+            <ToastProvider>
+              <Header />
+              {children}
+              <Footer />
+              <BackToTop />
+              <CookieConsentManager />
+            </ToastProvider>
+          </MotionProvider>
         </PostHogProvider>
       </body>
     </html>

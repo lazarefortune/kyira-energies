@@ -6,10 +6,13 @@ import { motion, useReducedMotion } from "motion/react";
 import { landingContent } from "@/content/landing";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import {
+  easeOut,
+  motionDelay,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 import { cn } from "@/lib/utils";
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
-const viewport = { once: false, amount: 0.2 } as const;
 
 function FAQTitle({ title, accent }: { title: string; accent?: string }) {
   if (!accent || !title.includes(accent)) {
@@ -37,13 +40,13 @@ export function FAQSection() {
   const fadeUp = {
     hidden: {
       opacity: 0,
-      y: prefersReducedMotion ? 0 : 28,
+      y: 28,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.55,
+        duration: motionDuration(prefersReducedMotion, 0.55),
         ease: easeOut,
       },
     },
@@ -52,13 +55,13 @@ export function FAQSection() {
   const fadeLeft = {
     hidden: {
       opacity: 0,
-      x: prefersReducedMotion ? 0 : -32,
+      x: -32,
     },
     visible: {
       opacity: 1,
       x: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.6,
+        duration: motionDuration(prefersReducedMotion, 0.6),
         ease: easeOut,
       },
     },
@@ -68,8 +71,8 @@ export function FAQSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
-        delayChildren: prefersReducedMotion ? 0 : 0.08,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.1),
+        delayChildren: motionDelay(prefersReducedMotion, 0.08),
       },
     },
   };
@@ -78,8 +81,8 @@ export function FAQSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.08,
-        delayChildren: prefersReducedMotion ? 0 : 0.12,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.08),
+        delayChildren: motionDelay(prefersReducedMotion, 0.12),
       },
     },
   };
@@ -88,7 +91,7 @@ export function FAQSection() {
     <section
       id={faq.id}
       aria-labelledby="faq-title"
-      className="border-t border-border bg-surface py-16 sm:py-20"
+      className="bg-surface py-16 sm:py-20"
     >
       <Container as="div">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-16 xl:gap-20">
@@ -96,7 +99,7 @@ export function FAQSection() {
             className="lg:sticky lg:top-28"
             initial="hidden"
             whileInView="visible"
-            viewport={viewport}
+            viewport={motionViewport}
             variants={staggerContainer}
           >
             <motion.p
@@ -134,7 +137,7 @@ export function FAQSection() {
             className="divide-y divide-border"
             initial="hidden"
             whileInView="visible"
-            viewport={viewport}
+            viewport={motionViewport}
             variants={faqStagger}
           >
             {faq.items.map((item, index) => {
@@ -181,7 +184,7 @@ export function FAQSection() {
                       opacity: isOpen ? 1 : 0,
                     }}
                     transition={{
-                      duration: prefersReducedMotion ? 0 : 0.25,
+                      duration: motionDuration(prefersReducedMotion, 0.25),
                       ease: easeOut,
                     }}
                     className="overflow-hidden"

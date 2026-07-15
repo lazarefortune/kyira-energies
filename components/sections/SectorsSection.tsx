@@ -7,10 +7,13 @@ import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { sectorIcons } from "@/lib/icons";
+import {
+  easeOut,
+  motionDelay,
+  motionDuration,
+  motionViewport,
+} from "@/lib/motion";
 import { cn } from "@/lib/utils";
-
-const easeOut = [0.22, 1, 0.36, 1] as const;
-const viewport = { once: false, amount: 0.2 } as const;
 
 function SectorsTitle({ title, accent }: { title: string; accent: string }) {
   if (!title.includes(accent)) {
@@ -37,13 +40,13 @@ export function SectorsSection() {
   const fadeUp = {
     hidden: {
       opacity: 0,
-      y: prefersReducedMotion ? 0 : 28,
+      y: 28,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: prefersReducedMotion ? 0 : 0.55,
+        duration: motionDuration(prefersReducedMotion, 0.55),
         ease: easeOut,
       },
     },
@@ -53,8 +56,8 @@ export function SectorsSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.1,
-        delayChildren: prefersReducedMotion ? 0 : 0.05,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.1),
+        delayChildren: motionDelay(prefersReducedMotion, 0.05),
       },
     },
   };
@@ -63,8 +66,8 @@ export function SectorsSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: prefersReducedMotion ? 0 : 0.12,
-        delayChildren: prefersReducedMotion ? 0 : 0.15,
+        staggerChildren: motionDelay(prefersReducedMotion, 0.12),
+        delayChildren: motionDelay(prefersReducedMotion, 0.15),
       },
     },
   };
@@ -80,7 +83,7 @@ export function SectorsSection() {
           className="grid gap-4 sm:gap-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-start lg:gap-12"
           initial="hidden"
           whileInView="visible"
-          viewport={viewport}
+          viewport={motionViewport}
           variants={staggerContainer}
         >
           <motion.p
@@ -111,7 +114,7 @@ export function SectorsSection() {
           className="mt-10 grid auto-rows-fr gap-4 sm:grid-cols-2 sm:gap-5 lg:mt-14 lg:grid-cols-4"
           initial="hidden"
           whileInView="visible"
-          viewport={viewport}
+          viewport={motionViewport}
           variants={cardStagger}
         >
           {sectors.items.map((item, index) => {
