@@ -1,26 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafc;
+  --foreground: #1e293b;
+  --surface: #ffffff;
+  --surface-muted: #f1f5f9;
+  --border: #e2e8f0;
+  --muted: #64748b;
+  --primary: #152e4b;
+  --primary-hover: #0f2238;
+  --primary-foreground: #ffffff;
+  --primary-50: #f2f7fd;
+  --primary-100: #e4eefa;
+  --primary-200: #c4dcf3;
+  --primary-300: #90c0e9;
+  --primary-400: #559fdb;
+  --primary-500: #2f84c8;
+  --primary-600: #1f68aa;
+  --primary-700: #1b5389;
+  --primary-800: #1a4772;
+  --primary-900: #1b3d5f;
+  --primary-950: #152e4b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-50: var(--primary-50);
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-primary-700: var(--primary-700);
+  --color-primary-800: var(--primary-800);
+  --color-primary-900: var(--primary-900);
+  --color-primary-950: var(--primary-950);
+  --font-editorial-new: var(--font-family-editorial-new), ui-serif, Georgia, serif;
+  --font-manrope: var(--font-family-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-archivo: var(--font-family-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-geist-mono: var(--font-family-geist-mono), ui-monospace, monospace;
+  --font-sans: var(--font-manrope);
+  --font-heading: var(--font-archivo);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+
+  :is(h1, h2, h3, h4, h5, h6) {
+    @apply font-heading;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Variante hero "split" — voir lib/site-variant.ts */
+.hero-diagonal-fade {
+  background: linear-gradient(
+    108deg,
+    #ffffff 0%,
+    #ffffff 44%,
+    rgba(255, 255, 255, 0.98) 48%,
+    rgba(255, 255, 255, 0.92) 51%,
+    rgba(255, 255, 255, 0.78) 54%,
+    rgba(255, 255, 255, 0.55) 57%,
+    rgba(255, 255, 255, 0.28) 60%,
+    rgba(255, 255, 255, 0.08) 63%,
+    transparent 66%
+  );
 }
