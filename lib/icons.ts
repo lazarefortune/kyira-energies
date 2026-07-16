@@ -2,6 +2,7 @@ import type { IconSvgElement } from "@hugeicons/react";
 import {
   ArrowRight01Icon,
   ArrowLeft01Icon,
+  Mouse01Icon,
   Audit02Icon,
   Award01Icon,
   Cancel01Icon,
@@ -75,6 +76,7 @@ export const aboutHighlightIcon = Check;
 export const heroEyebrowIcon = EnergyIcon;
 export const ctaArrowIcon = ArrowRight01Icon;
 export const backArrowIcon = ArrowLeft01Icon;
+export const scrollDownIcon = Mouse01Icon;
 export const testimonialSmileIcon = SmileIcon;
 export const testimonialQuoteIcon = QuoteUpIcon;
 

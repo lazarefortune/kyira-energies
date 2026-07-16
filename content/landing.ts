@@ -22,9 +22,9 @@ export const landingContent: SiteContent = {
     primaryCta: { label: "Demander un échange", href: "#contact" },
     secondaryCta: { label: "Découvrir la solution", href: "#solution" },
     reassurancePoints: [
-      "Récupération de chaleur perdue",
       "Installations frigorifiques",
-      "Eau chaude et besoins thermiques",
+      "Besoins thermiques",
+      "Bâtiments tertiaires",
     ],
     backgroundImage: "/ventilation-illustration-05.jpg",
   },
@@ -236,12 +236,9 @@ export const landingContent: SiteContent = {
     successMessage:
       "Votre demande a bien été envoyée. Nous vous recontacterons rapidement.",
     errorMessages: {
-      validation:
-        "Vérifiez les champs obligatoires et réessayez.",
-      turnstile:
-        "La vérification anti-spam a échoué. Merci de réessayer.",
-      config:
-        "L'envoi est temporairement indisponible. Réessayez plus tard.",
+      validation: "Vérifiez les champs obligatoires et réessayez.",
+      turnstile: "La vérification anti-spam a échoué. Merci de réessayer.",
+      config: "L'envoi est temporairement indisponible. Réessayez plus tard.",
       send: "L'envoi a échoué. Merci de réessayer dans quelques instants.",
     },
     fieldErrors: {
@@ -306,7 +303,10 @@ export const landingContent: SiteContent = {
     ],
     legalLinks: [
       { label: "Mentions légales", href: "/mentions-legales" },
-      { label: "Politique de confidentialité", href: "/politique-confidentialite" },
+      {
+        label: "Politique de confidentialité",
+        href: "/politique-confidentialite",
+      },
     ],
     copyright: "© KYIRA ENERGIES. Tous droits réservés.",
   },
