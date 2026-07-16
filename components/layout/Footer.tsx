@@ -59,16 +59,6 @@ export function Footer() {
 
         <div className="flex justify-between items-center mt-10 border-t border-border pt-6">
           <p className="text-sm text-muted">{footer.copyright}</p>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://www.linkedin.com/in/yannis-miame/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-primary bg-primary text-white rounded-full p-2.5 flex items-center justify-center transition-colors hover:bg-primary/90 hover:text-white hover:border-primary/10"
-            >
-              <Icon icon={Linkedin02Icon} size={20} />
-            </a>
-          </div>
         </div>
       </Container>
     </footer>
