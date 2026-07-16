@@ -172,33 +172,33 @@ function CookiePreferencesModalContent({
         </div>
 
         <div className="space-y-4 px-5 py-5 sm:px-6">
-              <div className="rounded-lg border border-border bg-surface-muted/50 p-4">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0 space-y-1">
-                    <p className="text-sm font-semibold text-foreground">
-                      Cookies nécessaires
-                    </p>
-                    <p className="text-sm leading-relaxed text-muted">
-                      Ils permettent de mémoriser votre choix de consentement et
-                      d&apos;assurer le bon fonctionnement du site.
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    role="switch"
-                    aria-checked={true}
-                    aria-disabled={true}
-                    disabled
-                    aria-label="Cookies nécessaires toujours actifs"
-                    className="relative mt-0.5 inline-flex h-6 w-11 shrink-0 cursor-not-allowed items-center rounded-full bg-primary opacity-60"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="inline-block size-5 translate-x-5 rounded-full bg-white shadow"
-                    />
-                  </button>
-                </div>
+          <div className="rounded-lg border border-border bg-surface-muted/50 p-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="min-w-0 space-y-1">
+                <p className="text-sm font-semibold text-foreground">
+                  Cookies nécessaires
+                </p>
+                <p className="text-sm leading-relaxed text-muted">
+                  Ils permettent de mémoriser votre choix de consentement et
+                  d&apos;assurer le bon fonctionnement du site.
+                </p>
               </div>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={true}
+                aria-disabled={true}
+                disabled
+                aria-label="Cookies nécessaires toujours actifs"
+                className="relative mt-0.5 inline-flex h-6 w-11 shrink-0 cursor-not-allowed items-center rounded-full bg-primary opacity-60"
+              >
+                <span
+                  aria-hidden="true"
+                  className="inline-block size-5 translate-x-5 rounded-full bg-white shadow"
+                />
+              </button>
+            </div>
+          </div>
 
           <div className="rounded-lg border border-border p-4">
             <div className="flex items-start justify-between gap-4">
@@ -207,8 +207,8 @@ function CookiePreferencesModalContent({
                   Mesure d&apos;audience
                 </p>
                 <p className="text-sm leading-relaxed text-muted">
-                  Ces cookies nous aident à comprendre l&apos;utilisation du site
-                  afin d&apos;améliorer son contenu.
+                  Ces cookies nous aident à comprendre l&apos;utilisation du
+                  site afin d&apos;améliorer son contenu.
                 </p>
               </div>
 
@@ -235,33 +235,35 @@ function CookiePreferencesModalContent({
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 border-t border-border px-5 py-4 sm:justify-end sm:gap-3 sm:px-6">
+        <div className="flex flex-col items-center gap-2 border-t border-border px-5 py-4 sm:justify-end sm:gap-3 sm:px-6">
+          <div className="flex w-full items-center gap-2 sm:w-auto">
+            <Button
+              type="button"
+              variant="primary"
+              size="md"
+              onClick={() => applyAndClose("rejected")}
+              className="order-2 w-full sm:order-2 sm:w-auto"
+            >
+              Tout refuser
+            </Button>
+            <Button
+              type="button"
+              variant="primary"
+              size="md"
+              onClick={() => applyAndClose("accepted")}
+              className="order-1 w-full sm:order-3 sm:w-auto"
+            >
+              Tout accepter
+            </Button>
+          </div>
           <Button
             type="button"
-            variant="outline"
-            size="sm"
+            variant="link"
+            size="md"
             onClick={handleSave}
-            className="order-3 w-full sm:order-1 sm:w-auto"
+            className="w-full"
           >
             Enregistrer mes choix
-          </Button>
-          <Button
-            type="button"
-            variant="primary"
-            size="sm"
-            onClick={() => applyAndClose("rejected")}
-            className="order-2 w-full sm:order-2 sm:w-auto"
-          >
-            Tout refuser
-          </Button>
-          <Button
-            type="button"
-            variant="primary"
-            size="sm"
-            onClick={() => applyAndClose("accepted")}
-            className="order-1 w-full sm:order-3 sm:w-auto"
-          >
-            Tout accepter
           </Button>
         </div>
       </motion.div>

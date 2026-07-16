@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "secondary" | "outline" | "light";
+type ButtonVariant = "primary" | "secondary" | "outline" | "light" | "link";
 type ButtonSize = "sm" | "md" | "lg";
 
 type ButtonBaseProps = {
@@ -29,6 +29,7 @@ const variantStyles: Record<ButtonVariant, string> = {
         "border-2 border-border bg-transparent text-foreground hover:bg-surface-muted focus-visible:ring-muted",
   light:
         "bg-white text-primary border border-white hover:bg-white/90 focus-visible:ring-primary",
+  link: "text-primary hover:text-primary-hover focus-visible:ring-primary",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

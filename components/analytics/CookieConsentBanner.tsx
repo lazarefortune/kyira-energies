@@ -77,8 +77,8 @@ export function CookieConsentBanner({
             <div className="flex w-full shrink-0 flex-wrap items-center gap-2 sm:w-auto sm:justify-end sm:gap-3">
               <Button
                 type="button"
-                variant="outline"
-                size="sm"
+                variant="link"
+                size="md"
                 onClick={onManagePreferences}
                 aria-label="Gérer mes préférences cookies"
                 className="order-3 w-full sm:order-1 sm:w-auto"
@@ -88,7 +88,7 @@ export function CookieConsentBanner({
               <Button
                 type="button"
                 variant="primary"
-                size="sm"
+                size="md"
                 onClick={onReject}
                 aria-label="Refuser les cookies de mesure d'audience"
                 className="order-2 w-full sm:order-2 sm:w-auto"
@@ -98,7 +98,7 @@ export function CookieConsentBanner({
               <Button
                 type="button"
                 variant="primary"
-                size="sm"
+                size="md"
                 onClick={onAccept}
                 aria-label="Accepter les cookies de mesure d'audience"
                 className="order-1 w-full sm:order-3 sm:w-auto"

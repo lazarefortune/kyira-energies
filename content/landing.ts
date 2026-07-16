@@ -26,7 +26,7 @@ export const landingContent: SiteContent = {
       "Besoins thermiques",
       "Bâtiments tertiaires",
     ],
-    backgroundImage: "/ventilation-illustration-05.jpg",
+    backgroundImage: "/ventilation-illustration-02.jpg",
   },
 
   about: {
