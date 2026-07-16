@@ -12,7 +12,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border bg-white">
-      <Container as="div" className="py-12">
+      <Container as="div" className="pt-12 pb-24">
         <div className="grid gap-8 sm:grid-cols-4 lg:grid-cols-8">
           <div className="col-span-4">
             <Logo />
