@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export type ContactEmailPayload = {
   name: string;
@@ -20,39 +20,26 @@ function sanitizeHeaderValue(value: string): string {
   return value.replace(/[\r\n]+/g, " ").trim();
 }
 
-function createTransport() {
-  const host = requireEnv("SMTP_HOST");
-  const port = Number(process.env.SMTP_PORT ?? "1025");
-  const secure = process.env.SMTP_SECURE === "true";
-  const user = process.env.SMTP_USER?.trim();
-  const pass = process.env.SMTP_PASS?.trim();
-
-  return nodemailer.createTransport({
-    host,
-    port,
-    secure,
-    auth: user && pass ? { user, pass } : undefined,
-  });
-}
-
 export function isMailConfigured(): boolean {
   return Boolean(
-    process.env.SMTP_HOST?.trim() &&
+    process.env.RESEND_API_KEY?.trim() &&
       process.env.CONTACT_TO_EMAIL?.trim() &&
       process.env.CONTACT_FROM_EMAIL?.trim(),
   );
 }
 
 /**
- * Envoie l'email de contact via SMTP.
- * Local : Mailpit (SMTP_HOST=127.0.0.1, SMTP_PORT=1025, sans auth).
+ * Envoie l'email de contact via l'API Resend.
+ * CONTACT_FROM_EMAIL doit être un domaine vérifié chez Resend
+ * (ou onboarding@resend.dev pour les tests).
  */
 export async function sendContactEmail(
   to: string,
   payload: ContactEmailPayload,
 ): Promise<void> {
+  const apiKey = requireEnv("RESEND_API_KEY");
   const from = requireEnv("CONTACT_FROM_EMAIL");
-  const transport = createTransport();
+  const resend = new Resend(apiKey);
 
   const name = sanitizeHeaderValue(payload.name);
   const company = sanitizeHeaderValue(payload.company);
@@ -75,11 +62,15 @@ export async function sendContactEmail(
     payload.message.trim(),
   ].join("\n");
 
-  await transport.sendMail({
+  const { error } = await resend.emails.send({
     from,
     to,
     replyTo: email,
     subject,
     text,
   });
+
+  if (error) {
+    throw new Error(error.message);
+  }
 }

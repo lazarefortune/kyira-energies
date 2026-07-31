@@ -80,6 +80,17 @@ export const landingContent: SiteContent = {
     cta: { label: "Étudier mon potentiel", href: "#contact" },
   },
 
+  financing: {
+    id: "financement",
+    title:
+      "Jusqu'à 100 % des travaux pris en charge pour les projets éligibles",
+    titleAccent: "100 % des travaux",
+    visualValue: "100 %",
+    supportText:
+      "Via le dispositif des Certificats d'Économies d'Énergie (CEE).",
+    cta: { label: "Vérifier mon éligibilité", href: "#contact" },
+  },
+
   method: {
     id: "methode",
     eyebrow: "Méthode",
@@ -214,9 +225,14 @@ export const landingContent: SiteContent = {
           "L'accompagnement passe par la compréhension du site, l'étude du potentiel récupérable, la définition d'une solution adaptée puis le suivi du projet.",
       },
       {
-        question: "Quels éléments fournir pour une première analyse ?",
+        question: "Comment fonctionne le financement par les CEE ?",
         answer:
-          "Vous pouvez partager le type de bâtiment, les installations frigorifiques présentes, vos besoins en eau chaude ou chauffage, ainsi que toute information utile sur vos consommations.",
+          "Les Certificats d'Économies d'Énergie peuvent permettre de financer tout ou partie des travaux liés à la performance énergétique. Pour les projets éligibles accompagnés par KYIRA ENERGIES, la prise en charge peut atteindre 100 % des travaux. L'éligibilité doit être vérifiée avant toute mise en œuvre.",
+      },
+      {
+        question: "Tous les projets sont-ils financés à 100 % ?",
+        answer:
+          "Non. La prise en charge à 100 % concerne uniquement les projets répondant aux critères d'éligibilité du dispositif CEE. Une étude préalable est nécessaire pour confirmer cette éligibilité.",
       },
     ],
   },
@@ -227,7 +243,7 @@ export const landingContent: SiteContent = {
     title: "Étudions votre potentiel de récupération de chaleur",
     titleAccent: "récupération de chaleur",
     description:
-      "Décrivez votre bâtiment, vos installations ou votre besoin énergétique. Un premier échange permettra d'identifier les pistes possibles de valorisation.",
+      "Décrivez votre bâtiment, vos installations ou votre projet. Un premier échange permettra d'étudier les pistes de valorisation et votre éventuelle éligibilité au financement CEE.",
     messageLabel: "Message",
     messagePlaceholder:
       "Décrivez brièvement votre bâtiment, vos installations ou votre besoin énergétique…",

@@ -55,6 +55,15 @@ export type ServicesContent = {
   cta: CtaLink;
 };
 
+export type FinancingContent = {
+  id: string;
+  title: string;
+  titleAccent: string;
+  visualValue: string;
+  supportText: string;
+  cta: CtaLink;
+};
+
 export type MethodStep = {
   step: string;
   title: string;
@@ -196,6 +205,7 @@ export type SiteContent = {
   hero: HeroContent;
   about: AboutContent;
   services: ServicesContent;
+  financing: FinancingContent;
   method: MethodContent;
   sectors: SectorsContent;
   testimonials: TestimonialsContent;

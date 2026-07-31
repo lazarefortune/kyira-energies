@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: `%s | ${landingContent.siteName}`,
   },
   description:
-    "Valorisez la chaleur perdue de vos installations frigorifiques pour réduire vos coûts énergétiques et couvrir vos besoins en eau chaude ou en chauffage.",
+    "Récupération de chaleur pour bâtiments tertiaires : valorisez la chaleur perdue de vos installations frigorifiques et étudiez votre éligibilité au financement CEE.",
 };
 
 export default function RootLayout({
