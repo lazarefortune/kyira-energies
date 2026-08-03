@@ -213,7 +213,9 @@ export default function PolitiqueConfidentialitePage() {
                 <p>
                   Le formulaire de contact peut utiliser Cloudflare Turnstile
                   afin de limiter les envois automatisés et protéger le site
-                  contre le spam.
+                  contre le spam. Les messages sont acheminés vers KYIRA
+                  ENERGIES via le service d&apos;envoi d&apos;emails Resend,
+                  uniquement pour transmettre la demande de contact.
                 </p>
                 <InfoRowPending
                   label="Hébergeur"

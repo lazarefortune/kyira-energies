@@ -38,11 +38,15 @@ export function trackEvent(
   posthog.capture(name, properties);
 }
 
-/** Événements prévus pour une V1 ultérieure (non branchés pour l’instant). */
-export const PlannedAnalyticsEvents = {
+/** Noms d’événements analytics (sans données personnelles). */
+export const AnalyticsEvents = {
   ctaClickContact: "cta_click_contact",
   ctaClickSolution: "cta_click_solution",
   faqOpened: "faq_opened",
   contactFormStarted: "contact_form_started",
   contactFormSubmitted: "contact_form_submitted",
+  contactFormFailed: "contact_form_failed",
 } as const;
+
+/** @deprecated Utiliser AnalyticsEvents. */
+export const PlannedAnalyticsEvents = AnalyticsEvents;

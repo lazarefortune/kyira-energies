@@ -4,7 +4,14 @@ import { type FormEvent, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 import { landingContent } from "@/content/landing";
-import { submitContactForm } from "@/lib/contact-form";
+import {
+  CONTACT_FIELD_LIMITS,
+  type ContactFormResult,
+} from "@/lib/contact-form";
+import {
+  AnalyticsEvents,
+  trackEvent,
+} from "@/lib/analytics";
 import {
   contactFormLoadingIcon,
   contactFormSendingIcon,
@@ -28,6 +35,54 @@ type FieldName = "name" | "company" | "email" | "phone" | "message";
 type FieldErrors = Partial<Record<FieldName | "turnstile", string>>;
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+async function postContactForm(payload: {
+  name: string;
+  company: string;
+  email: string;
+  phone?: string;
+  message: string;
+  turnstileToken: string;
+  website: string;
+}): Promise<ContactFormResult> {
+  const response = await fetch("/api/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  let result: unknown;
+
+  try {
+    result = await response.json();
+  } catch {
+    return { ok: false, reason: "send" };
+  }
+
+  if (
+    result &&
+    typeof result === "object" &&
+    "ok" in result &&
+    (result as ContactFormResult).ok === true
+  ) {
+    return { ok: true };
+  }
+
+  if (
+    result &&
+    typeof result === "object" &&
+    "ok" in result &&
+    (result as ContactFormResult).ok === false &&
+    "reason" in result
+  ) {
+    return result as ContactFormResult;
+  }
+
+  return { ok: false, reason: "send" };
+}
 
 export function ContactForm() {
   const { contact } = landingContent;
@@ -109,6 +164,7 @@ export function ContactForm() {
     const email = String(data.get("email") ?? "").trim();
     const phone = String(data.get("phone") ?? "").trim();
     const message = String(data.get("message") ?? "").trim();
+    const website = String(data.get("website") ?? "").trim();
 
     const errors = validateFields({
       name,
@@ -133,27 +189,32 @@ export function ContactForm() {
     setStatus({ kind: "submitting" });
 
     try {
-      const result = await submitContactForm({
+      const result = await postContactForm({
         name,
         company,
         email,
         phone: phone || undefined,
         message,
         turnstileToken: turnstileToken!,
+        website,
       });
 
-      if (result?.ok === true) {
+      if (result.ok === true) {
         form.reset();
         resetTurnstile();
         setFieldErrors({});
         setStatus({ kind: "idle" });
+        trackEvent(AnalyticsEvents.contactFormSubmitted);
         toast.success(contact.successMessage);
         return;
       }
 
       resetTurnstile();
 
-      if (result && "reason" in result && result.reason === "validation") {
+      const reason = result.reason;
+      trackEvent(AnalyticsEvents.contactFormFailed, { reason });
+
+      if (reason === "validation") {
         setFieldErrors({
           email: contact.fieldErrors.email,
         });
@@ -161,7 +222,7 @@ export function ContactForm() {
         return;
       }
 
-      if (result && "reason" in result && result.reason === "turnstile") {
+      if (reason === "turnstile") {
         setFieldErrors({
           turnstile: contact.fieldErrors.turnstile,
         });
@@ -169,12 +230,10 @@ export function ContactForm() {
         return;
       }
 
-      setStatus({
-        kind: "error",
-        reason: result && "reason" in result ? result.reason : "send",
-      });
+      setStatus({ kind: "error", reason });
     } catch {
       resetTurnstile();
+      trackEvent(AnalyticsEvents.contactFormFailed, { reason: "send" });
       setStatus({ kind: "error", reason: "send" });
     }
   }
@@ -193,6 +252,22 @@ export function ContactForm() {
       >
         <legend className="sr-only">{contact.eyebrow}</legend>
 
+        {/* Honeypot anti-spam — ne pas retirer */}
+        <div
+          className="absolute left-[-9999px] h-0 w-0 overflow-hidden"
+          aria-hidden="true"
+        >
+          <label htmlFor="contact-website">Site web</label>
+          <input
+            id="contact-website"
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            defaultValue=""
+          />
+        </div>
+
         <div className="grid min-w-0 gap-3 sm:grid-cols-2">
           {contact.fields.map((field) => (
             <Input
@@ -204,6 +279,11 @@ export function ContactForm() {
               placeholder={field.placeholder}
               autoComplete={field.autoComplete}
               required={field.required}
+              maxLength={
+                CONTACT_FIELD_LIMITS[
+                  field.name as keyof typeof CONTACT_FIELD_LIMITS
+                ]
+              }
               className="min-w-0 py-2"
               error={fieldErrors[field.name as FieldName]}
               onChange={() => {
@@ -223,6 +303,7 @@ export function ContactForm() {
           placeholder={contact.messagePlaceholder}
           className="min-h-32 w-full max-w-full resize-y py-2"
           required
+          maxLength={CONTACT_FIELD_LIMITS.message}
           error={fieldErrors.message}
           onChange={() => {
             clearFieldError("message");

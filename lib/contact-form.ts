@@ -1,9 +1,3 @@
-"use server";
-
-import { getContactDestinationEmail } from "@/lib/contact-destination";
-import { isMailConfigured, sendContactEmail } from "@/lib/mail";
-import { verifyTurnstileToken } from "@/lib/turnstile";
-
 export type ContactFormPayload = {
   name: string;
   company: string;
@@ -11,6 +5,8 @@ export type ContactFormPayload = {
   phone?: string;
   message: string;
   turnstileToken: string;
+  /** Honeypot — doit rester vide. */
+  website?: string;
 };
 
 export type ContactFormResult =
@@ -20,59 +16,72 @@ export type ContactFormResult =
       reason: "turnstile" | "validation" | "config" | "send";
     };
 
+export const CONTACT_FIELD_LIMITS = {
+  name: 100,
+  company: 150,
+  email: 254,
+  phone: 40,
+  message: 5000,
+} as const;
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export type NormalizedContactInput = {
+  name: string;
+  company: string;
+  email: string;
+  phone: string | undefined;
+  message: string;
+  turnstileToken: string;
+  website: string;
+};
+
+export function normalizeContactInput(
+  payload: Partial<ContactFormPayload>,
+): NormalizedContactInput {
+  return {
+    name: String(payload.name ?? "").trim(),
+    company: String(payload.company ?? "").trim(),
+    email: String(payload.email ?? "").trim(),
+    phone: String(payload.phone ?? "").trim() || undefined,
+    message: String(payload.message ?? "").trim(),
+    turnstileToken: String(payload.turnstileToken ?? "").trim(),
+    website: String(payload.website ?? "").trim(),
+  };
+}
+
 /**
- * Valide Turnstile puis envoie l'email de contact.
- * Destinataire via getContactDestinationEmail() (env aujourd'hui, BDD plus tard).
+ * Valide les champs côté serveur. Ne vérifie pas Turnstile ni la config mail.
+ * Retourne null si le honeypot est rempli (bot) — à traiter comme succès silencieux.
  */
-export async function submitContactForm(
-  payload: ContactFormPayload,
-): Promise<ContactFormResult> {
-  const name = payload.name?.trim() ?? "";
-  const company = payload.company?.trim() ?? "";
-  const email = payload.email?.trim() ?? "";
-  const phone = payload.phone?.trim() || undefined;
-  const message = payload.message?.trim() ?? "";
+export function validateContactFields(
+  input: NormalizedContactInput,
+): "honeypot" | "validation" | null {
+  if (input.website) {
+    return "honeypot";
+  }
 
   if (
-    !name ||
-    !company ||
-    !email ||
-    !EMAIL_PATTERN.test(email) ||
-    !message ||
-    !payload.turnstileToken
+    !input.name ||
+    !input.company ||
+    !input.email ||
+    !EMAIL_PATTERN.test(input.email) ||
+    !input.message ||
+    !input.turnstileToken
   ) {
-    return { ok: false, reason: "validation" };
+    return "validation";
   }
 
-  const turnstile = await verifyTurnstileToken(payload.turnstileToken);
-
-  if (!turnstile.success) {
-    return { ok: false, reason: "turnstile" };
+  if (
+    input.name.length > CONTACT_FIELD_LIMITS.name ||
+    input.company.length > CONTACT_FIELD_LIMITS.company ||
+    input.email.length > CONTACT_FIELD_LIMITS.email ||
+    (input.phone !== undefined &&
+      input.phone.length > CONTACT_FIELD_LIMITS.phone) ||
+    input.message.length > CONTACT_FIELD_LIMITS.message
+  ) {
+    return "validation";
   }
 
-  if (!isMailConfigured()) {
-    return { ok: false, reason: "config" };
-  }
-
-  const to = await getContactDestinationEmail();
-
-  if (!to) {
-    return { ok: false, reason: "config" };
-  }
-
-  try {
-    await sendContactEmail(to, {
-      name,
-      company,
-      email,
-      phone,
-      message,
-    });
-  } catch {
-    return { ok: false, reason: "send" };
-  }
-
-  return { ok: true };
+  return null;
 }
