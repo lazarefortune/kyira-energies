@@ -51,10 +51,16 @@ function buildContactText(payload: {
   message: string;
   receivedAt: string;
 }): string {
-  const lines = [payload.message, "", payload.name, payload.company, payload.email];
+  const lines = [
+    payload.message,
+    "",
+    `Nom: ${payload.name}`,
+    `Entreprise: ${payload.company}`,
+    `Email: ${payload.email}`,
+  ];
 
   if (payload.phone) {
-    lines.push(`Téléphone : ${payload.phone}`);
+    lines.push(`Téléphone: ${payload.phone}`);
   }
 
   lines.push(
@@ -77,13 +83,13 @@ function buildContactHtml(payload: {
 }): string {
   const messageHtml = escapeHtml(payload.message).replace(/\r\n|\r|\n/g, "<br>");
   const signatureParts = [
-    escapeHtml(payload.name),
-    escapeHtml(payload.company),
-    escapeHtml(payload.email),
+    `Nom: ${escapeHtml(payload.name)}`,
+    `Entreprise: ${escapeHtml(payload.company)}`,
+    `Email: ${escapeHtml(payload.email)}`,
   ];
 
   if (payload.phone) {
-    signatureParts.push(`Téléphone : ${escapeHtml(payload.phone)}`);
+    signatureParts.push(`Téléphone: ${escapeHtml(payload.phone)}`);
   }
 
   return [
