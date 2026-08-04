@@ -140,7 +140,10 @@ export function TurnstileWidget({
   }
 
   return (
-    <div className={cn("max-w-full overflow-hidden", className)}>
+    <div
+      className={cn("max-w-full overflow-hidden ph-no-capture", className)}
+      data-ph-block="turnstile"
+    >
       <div
         ref={containerRef}
         className="min-h-[65px] w-full max-w-full overflow-hidden [&_iframe]:max-w-full"

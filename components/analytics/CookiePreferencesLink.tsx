@@ -15,7 +15,7 @@ export function CookiePreferencesLink({
       type="button"
       onClick={openCookiePreferences}
       className={cn(
-        "text-sm text-muted transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+        "text-sm text-muted transition-colors hover:cursor-pointer hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
         className,
       )}
     >

@@ -266,22 +266,29 @@ export default function PolitiqueConfidentialitePage() {
 
               <LegalSection title="9. Cookies et mesure d'audience">
                 <p>
-                  Le site utilise PostHog comme outil de mesure d&apos;audience
-                  afin de comprendre l&apos;utilisation du site et d&apos;améliorer
-                  son contenu. PostHog n&apos;est activé qu&apos;après
-                  acceptation.
+                  Le site utilise PostHog (Product Analytics) comme outil de
+                  mesure d&apos;audience afin de comprendre la navigation et
+                  d&apos;améliorer le contenu du site. Des événements
+                  personnalisés peuvent être enregistrés (par exemple
+                  interactions avec le formulaire de contact ou la FAQ).
                 </p>
                 <p>
-                  Les cookies de mesure d&apos;audience ne sont déposés
-                  qu&apos;après acceptation via la bannière de consentement
-                  affichée lors de la première visite. Vous pouvez refuser ces
-                  cookies.
+                  Lorsque vous acceptez les cookies de mesure d&apos;audience,
+                  le Session Replay de PostHog peut également être activé. Il
+                  permet de rejouer anonymement le parcours de navigation afin
+                  d&apos;identifier les points de friction. Les champs du
+                  formulaire de contact sont masqués dans les enregistrements,
+                  et le widget Cloudflare Turnstile est exclu du replay.
                 </p>
                 <p>
-                  Vous pouvez modifier votre choix à tout moment via le lien
-                  «&nbsp;Gestion des cookies&nbsp;» dans le pied de page du
-                  site. Ce choix est mémorisé dans un cookie first-party pendant
-                  une durée maximale de 13 mois.
+                  PostHog n&apos;est activé qu&apos;après acceptation via la
+                  bannière de consentement affichée lors de la première visite.
+                  Les cookies de mesure d&apos;audience et le Session Replay ne
+                  sont pas utilisés si vous refusez. Vous pouvez modifier votre
+                  choix à tout moment via le lien «&nbsp;Gestion des
+                  cookies&nbsp;» dans le pied de page du site. Ce choix est
+                  mémorisé dans un cookie first-party pendant une durée maximale
+                  de 13 mois.
                 </p>
                 <p>
                   Les cookies nécessaires au stockage de votre choix de
@@ -289,9 +296,11 @@ export default function PolitiqueConfidentialitePage() {
                   fonctionnement du site.
                 </p>
                 <p>
-                  Les données collectées via cet outil sont utilisées
+                  Les données collectées via cet outil sont hébergées sur
+                  l&apos;infrastructure européenne de PostHog et sont utilisées
                   uniquement pour comprendre l&apos;utilisation du site et
-                  améliorer son contenu.
+                  améliorer son contenu. Aucune donnée personnelle saisie dans
+                  le formulaire de contact n&apos;est envoyée à PostHog.
                 </p>
               </LegalSection>
 

@@ -4,8 +4,16 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useId, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
-import { applyAnalyticsConsent } from "@/lib/analytics";
-import { getConsent, type CookieConsentValue } from "@/lib/consent";
+import {
+  ANALYTICS_EVENTS,
+  applyAnalyticsConsent,
+  trackEvent,
+} from "@/lib/analytics";
+import {
+  getConsent,
+  hasAcceptedConsent,
+  type CookieConsentValue,
+} from "@/lib/consent";
 import { easeOut, motionDuration } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -70,7 +78,19 @@ function CookiePreferencesModalContent({
   }, [onClose]);
 
   const applyAndClose = (value: CookieConsentValue) => {
+    const wasAccepted = hasAcceptedConsent();
+
     applyAnalyticsConsent(value);
+
+    if (value === "accepted") {
+      if (wasAccepted) {
+        trackEvent(ANALYTICS_EVENTS.COOKIE_PREFERENCES_SAVED);
+      } else {
+        trackEvent(ANALYTICS_EVENTS.COOKIE_CONSENT_ACCEPTED);
+      }
+    }
+    // Refus : aucun événement PostHog.
+
     onConsentApplied();
     onClose();
   };

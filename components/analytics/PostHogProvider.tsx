@@ -3,12 +3,17 @@
 import posthog from "posthog-js";
 import { useEffect } from "react";
 
-import { getConsent } from "@/lib/consent";
+import { syncAnalyticsConsentFromStorage } from "@/lib/analytics";
 
 type PostHogProviderProps = {
   children: React.ReactNode;
 };
 
+/**
+ * Initialise PostHog en opt-out par défaut.
+ * Session Replay : désactivé jusqu’à `startSessionRecording()` après consentement.
+ * Masquage : tous les inputs + blocage Turnstile via `ph-no-capture` / blockSelector.
+ */
 export function PostHogProvider({ children }: PostHogProviderProps) {
   useEffect(() => {
     const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
@@ -24,14 +29,17 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
       autocapture: false,
       disable_session_recording: true,
       person_profiles: "never",
+      session_recording: {
+        maskAllInputs: true,
+        // Classes supportées par posthog-js (defaults rrweb) : ph-no-capture, ph-mask
+        blockSelector:
+          '[data-ph-block="turnstile"], .cf-turnstile, iframe[src*="challenges.cloudflare.com"]',
+        recordHeaders: false,
+        recordBody: false,
+      },
     });
 
-    const consent = getConsent();
-    if (consent === "accepted") {
-      posthog.opt_in_capturing();
-    } else if (consent === "rejected") {
-      posthog.opt_out_capturing();
-    }
+    syncAnalyticsConsentFromStorage();
   }, []);
 
   return children;

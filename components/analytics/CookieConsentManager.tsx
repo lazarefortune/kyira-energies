@@ -4,9 +4,10 @@ import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
 
 import { CookieConsentBanner } from "@/components/analytics/CookieConsentBanner";
 import { CookiePreferencesModal } from "@/components/analytics/CookiePreferencesModal";
-import { applyAnalyticsConsent } from "@/lib/analytics";
+import { ANALYTICS_EVENTS, applyAnalyticsConsent, trackEvent } from "@/lib/analytics";
 import {
   getConsent,
+  hasAcceptedConsent,
   OPEN_COOKIE_PREFERENCES_EVENT,
 } from "@/lib/consent";
 
@@ -42,19 +43,30 @@ export function CookieConsentManager() {
     dismissBanner();
   }, [dismissBanner]);
 
+  const openPreferences = useCallback(() => {
+    // Uniquement si le consentement analytique est déjà actif.
+    if (hasAcceptedConsent()) {
+      trackEvent(ANALYTICS_EVENTS.COOKIE_PREFERENCES_OPENED);
+    }
+    setIsPreferencesOpen(true);
+  }, []);
+
   const handleAccept = () => {
     applyAnalyticsConsent("accepted");
+    // Après opt_in uniquement.
+    trackEvent(ANALYTICS_EVENTS.COOKIE_CONSENT_ACCEPTED);
     dismissBanner();
   };
 
   const handleReject = () => {
+    // Aucun événement PostHog de refus.
     applyAnalyticsConsent("rejected");
     dismissBanner();
   };
 
   useEffect(() => {
     const onOpenPreferences = () => {
-      setIsPreferencesOpen(true);
+      openPreferences();
     };
 
     window.addEventListener(OPEN_COOKIE_PREFERENCES_EVENT, onOpenPreferences);
@@ -64,7 +76,7 @@ export function CookieConsentManager() {
         onOpenPreferences,
       );
     };
-  }, []);
+  }, [openPreferences]);
 
   return (
     <>
@@ -72,7 +84,7 @@ export function CookieConsentManager() {
         isVisible={isBannerVisible}
         onAccept={handleAccept}
         onReject={handleReject}
-        onManagePreferences={() => setIsPreferencesOpen(true)}
+        onManagePreferences={openPreferences}
       />
       <CookiePreferencesModal
         isOpen={isPreferencesOpen}

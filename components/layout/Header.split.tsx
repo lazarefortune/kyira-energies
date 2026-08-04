@@ -6,6 +6,7 @@ import { landingContent } from "@/content/landing";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics";
 import { manrope } from "@/lib/fonts";
 import { cn, resolveSectionHref } from "@/lib/utils";
 import { Icon } from "../ui/Icon";
@@ -87,6 +88,11 @@ export function HeaderSplit() {
         <a
           href={resolveSectionHref("#accueil")}
           className="inline-flex shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          onClick={() => {
+            trackEvent(ANALYTICS_EVENTS.LOGO_CLICKED, {
+              link_target: "#accueil",
+            });
+          }}
         >
           <Logo variant="dark" priority />
         </a>
@@ -104,6 +110,12 @@ export function HeaderSplit() {
                     "text-sm font-semibold text-muted transition-colors",
                     "hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                   )}
+                  onClick={() => {
+                    trackEvent(ANALYTICS_EVENTS.NAVIGATION_LINK_CLICKED, {
+                      link_target: link.href,
+                      device_navigation_type: "desktop",
+                    });
+                  }}
                 >
                   {link.label}
                 </a>
@@ -118,11 +130,24 @@ export function HeaderSplit() {
             variant="primary"
             size="sm"
             className="hidden sm:inline-flex"
+            onClick={() => {
+              trackEvent(ANALYTICS_EVENTS.NAVIGATION_LINK_CLICKED, {
+                link_target: "#contact",
+                device_navigation_type: "desktop",
+              });
+            }}
           >
             Contact
           </Button>
 
-          <details className="relative md:hidden">
+          <details
+            className="relative md:hidden"
+            onToggle={(event) => {
+              if (event.currentTarget.open) {
+                trackEvent(ANALYTICS_EVENTS.MOBILE_MENU_OPENED);
+              }
+            }}
+          >
             <summary
               className={cn(
                 "cursor-pointer list-none rounded-full border border-border bg-white px-3 py-2 text-sm font-semibold text-foreground shadow-sm",
@@ -142,6 +167,12 @@ export function HeaderSplit() {
                     <a
                       href={resolveSectionHref(link.href)}
                       className="block px-4 py-2 text-sm text-muted hover:bg-surface-muted hover:text-foreground"
+                      onClick={() => {
+                        trackEvent(ANALYTICS_EVENTS.NAVIGATION_LINK_CLICKED, {
+                          link_target: link.href,
+                          device_navigation_type: "mobile",
+                        });
+                      }}
                     >
                       {link.label}
                     </a>
@@ -151,6 +182,12 @@ export function HeaderSplit() {
                   <a
                     href={resolveSectionHref("#contact")}
                     className="block px-4 py-2 text-sm font-semibold text-primary hover:bg-surface-muted"
+                    onClick={() => {
+                      trackEvent(ANALYTICS_EVENTS.NAVIGATION_LINK_CLICKED, {
+                        link_target: "#contact",
+                        device_navigation_type: "mobile",
+                      });
+                    }}
                   >
                     Contact
                   </a>

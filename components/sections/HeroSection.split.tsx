@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 
 import { landingContent } from "@/content/landing";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics";
 import { ctaArrowIcon } from "@/lib/icons";
 
 const TITLE_ACCENT = "récupération de chaleur";
@@ -64,11 +67,33 @@ export function HeroSectionSplit() {
             {hero.description}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button href={hero.primaryCta.href} variant="primary" size="lg">
+            <Button
+              href={hero.primaryCta.href}
+              variant="primary"
+              size="lg"
+              onClick={() => {
+                trackEvent(ANALYTICS_EVENTS.HERO_PRIMARY_CTA_CLICKED, {
+                  cta_location: "hero",
+                  cta_label: hero.primaryCta.label,
+                  link_target: hero.primaryCta.href,
+                });
+              }}
+            >
               {hero.primaryCta.label}
               <Icon icon={ctaArrowIcon} size={18} className="ml-2" />
             </Button>
-            <Button href={hero.secondaryCta.href} variant="outline" size="lg">
+            <Button
+              href={hero.secondaryCta.href}
+              variant="outline"
+              size="lg"
+              onClick={() => {
+                trackEvent(ANALYTICS_EVENTS.HERO_SECONDARY_CTA_CLICKED, {
+                  cta_location: "hero",
+                  cta_label: hero.secondaryCta.label,
+                  link_target: hero.secondaryCta.href,
+                });
+              }}
+            >
               {hero.secondaryCta.label}
             </Button>
           </div>

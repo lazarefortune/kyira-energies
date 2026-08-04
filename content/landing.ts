@@ -195,41 +195,49 @@ export const landingContent: SiteContent = {
     cta: { label: "Poser une question", href: "#contact" },
     items: [
       {
+        id: "definition-recuperation-chaleur",
         question: "Qu'est-ce que la récupération de chaleur ?",
         answer:
           "La récupération de chaleur consiste à capter une chaleur habituellement rejetée par un équipement, comme une installation frigorifique, pour la réutiliser dans le bâtiment.",
       },
       {
+        id: "batiments-concernes",
         question: "Quels bâtiments peuvent être concernés ?",
         answer:
           "Les bâtiments tertiaires disposant d'installations frigorifiques ou de besoins réguliers en eau chaude, chauffage ou autres usages thermiques peuvent présenter un potentiel.",
       },
       {
+        id: "remplacement-installations",
         question: "Faut-il remplacer les installations existantes ?",
         answer:
           "Pas nécessairement. La première étape consiste à étudier les équipements déjà présents afin d'identifier si une récupération de chaleur est possible.",
       },
       {
+        id: "usages-chaleur-recuperee",
         question: "À quoi peut servir la chaleur récupérée ?",
         answer:
           "Selon le bâtiment, la chaleur récupérée peut contribuer à produire de l'eau chaude, participer au chauffage ou répondre à d'autres besoins thermiques adaptés.",
       },
       {
+        id: "potentiel-site",
         question: "Comment savoir si mon site a un potentiel ?",
         answer:
           "Une première analyse permet de comprendre vos installations frigorifiques, vos usages et vos besoins thermiques afin d'identifier les possibilités de valorisation.",
       },
       {
+        id: "deroulement-accompagnement",
         question: "Comment se déroule l'accompagnement ?",
         answer:
           "L'accompagnement passe par la compréhension du site, l'étude du potentiel récupérable, la définition d'une solution adaptée puis le suivi du projet.",
       },
       {
+        id: "financement-cee",
         question: "Comment fonctionne le financement par les CEE ?",
         answer:
           "Les Certificats d'Économies d'Énergie peuvent permettre de financer tout ou partie des travaux liés à la performance énergétique. Pour les projets éligibles accompagnés par KYIRA ENERGIES, la prise en charge peut atteindre 100 % des travaux. L'éligibilité doit être vérifiée avant toute mise en œuvre.",
       },
       {
+        id: "prise-en-charge-100",
         question: "Tous les projets sont-ils financés à 100 % ?",
         answer:
           "Non. La prise en charge à 100 % concerne uniquement les projets répondant aux critères d'éligibilité du dispositif CEE. Une étude préalable est nécessaire pour confirmer cette éligibilité.",

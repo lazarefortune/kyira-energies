@@ -7,6 +7,7 @@ import { MethodSection } from "@/components/sections/MethodSection";
 import { SectorsSection } from "@/components/sections/SectorsSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <TestimonialsSection />
       <FAQSection />
       <ContactSection />
+      <SectionViewTracker />
     </main>
   );
 }

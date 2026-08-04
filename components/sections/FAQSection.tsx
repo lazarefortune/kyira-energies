@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { landingContent } from "@/content/landing";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics";
 import {
   easeOut,
   motionDelay,
@@ -87,6 +88,22 @@ export function FAQSection() {
     },
   };
 
+  function handleToggle(index: number, isOpen: boolean) {
+    if (isOpen) {
+      setOpenIndex(null);
+      return;
+    }
+
+    const item = faq.items[index];
+    if (item) {
+      trackEvent(ANALYTICS_EVENTS.FAQ_ITEM_OPENED, {
+        faq_id: item.id,
+        faq_position: index + 1,
+      });
+    }
+    setOpenIndex(index);
+  }
+
   return (
     <section
       id={faq.id}
@@ -142,18 +159,18 @@ export function FAQSection() {
           >
             {faq.items.map((item, index) => {
               const isOpen = openIndex === index;
-              const panelId = `faq-panel-${index}`;
-              const buttonId = `faq-button-${index}`;
+              const panelId = `faq-panel-${item.id}`;
+              const buttonId = `faq-button-${item.id}`;
 
               return (
-                <motion.li key={item.question} variants={fadeUp}>
+                <motion.li key={item.id} variants={fadeUp}>
                   <h3>
                     <button
                       id={buttonId}
                       type="button"
                       aria-expanded={isOpen}
                       aria-controls={panelId}
-                      onClick={() => setOpenIndex(isOpen ? null : index)}
+                      onClick={() => handleToggle(index, isOpen)}
                       className={cn(
                         "flex w-full cursor-pointer items-center justify-between gap-6 py-4 text-left text-base font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 sm:py-5 sm:text-lg",
                         isOpen

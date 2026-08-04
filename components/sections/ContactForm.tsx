@@ -9,7 +9,8 @@ import {
   type ContactFormResult,
 } from "@/lib/contact-form";
 import {
-  AnalyticsEvents,
+  ANALYTICS_EVENTS,
+  toContactFailureReason,
   trackEvent,
 } from "@/lib/analytics";
 import {
@@ -88,6 +89,7 @@ export function ContactForm() {
   const { contact } = landingContent;
   const toast = useToast();
   const formRef = useRef<HTMLFormElement>(null);
+  const formStartedRef = useRef(false);
   const [status, setStatus] = useState<FormStatus>({ kind: "idle" });
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -97,6 +99,14 @@ export function ContactForm() {
   const hasTurnstileSiteKey = Boolean(
     process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
   );
+
+  function trackFormStarted() {
+    if (formStartedRef.current) return;
+    formStartedRef.current = true;
+    trackEvent(ANALYTICS_EVENTS.CONTACT_FORM_STARTED, {
+      form_location: "contact_section",
+    });
+  }
 
   function resetTurnstile() {
     setTurnstileToken(null);
@@ -156,6 +166,11 @@ export function ContactForm() {
       return;
     }
 
+    trackEvent(ANALYTICS_EVENTS.CONTACT_FORM_SUBMIT_ATTEMPTED, {
+      form_location: "contact_section",
+      submit_source: "contact_form",
+    });
+
     const form = formRef.current ?? event.currentTarget;
     const data = new FormData(form);
 
@@ -178,6 +193,15 @@ export function ContactForm() {
     if (Object.keys(errors).length > 0) {
       setFieldErrors(errors);
       setStatus({ kind: "error", reason: "validation" });
+
+      trackEvent(ANALYTICS_EVENTS.CONTACT_FORM_VALIDATION_FAILED, {
+        failure_reason: Object.keys(errors).every((key) => key === "turnstile")
+          ? "turnstile_missing"
+          : "validation_error",
+        form_location: "contact_section",
+        submit_source: "contact_form",
+      });
+
       const firstInvalid = form.querySelector<HTMLElement>(
         "[aria-invalid='true'], [data-field-error='true']",
       );
@@ -204,17 +228,24 @@ export function ContactForm() {
         resetTurnstile();
         setFieldErrors({});
         setStatus({ kind: "idle" });
-        trackEvent(AnalyticsEvents.contactFormSubmitted);
+        trackEvent(ANALYTICS_EVENTS.CONTACT_FORM_SUBMITTED, {
+          form_location: "contact_section",
+          submit_source: "contact_form",
+        });
         toast.success(contact.successMessage);
         return;
       }
 
       resetTurnstile();
 
-      const reason = result.reason;
-      trackEvent(AnalyticsEvents.contactFormFailed, { reason });
+      const failureReason = toContactFailureReason(result.reason);
+      trackEvent(ANALYTICS_EVENTS.CONTACT_FORM_FAILED, {
+        failure_reason: failureReason,
+        form_location: "contact_section",
+        submit_source: "contact_form",
+      });
 
-      if (reason === "validation") {
+      if (result.reason === "validation") {
         setFieldErrors({
           email: contact.fieldErrors.email,
         });
@@ -222,7 +253,7 @@ export function ContactForm() {
         return;
       }
 
-      if (reason === "turnstile") {
+      if (result.reason === "turnstile") {
         setFieldErrors({
           turnstile: contact.fieldErrors.turnstile,
         });
@@ -230,10 +261,14 @@ export function ContactForm() {
         return;
       }
 
-      setStatus({ kind: "error", reason });
+      setStatus({ kind: "error", reason: result.reason });
     } catch {
       resetTurnstile();
-      trackEvent(AnalyticsEvents.contactFormFailed, { reason: "send" });
+      trackEvent(ANALYTICS_EVENTS.CONTACT_FORM_FAILED, {
+        failure_reason: "network_error",
+        form_location: "contact_section",
+        submit_source: "contact_form",
+      });
       setStatus({ kind: "error", reason: "send" });
     }
   }
@@ -242,6 +277,7 @@ export function ContactForm() {
     <form
       ref={formRef}
       onSubmit={handleSubmit}
+      onFocusCapture={trackFormStarted}
       noValidate
       className="relative min-w-0 w-full max-w-full space-y-3"
       aria-busy={isSubmitting}

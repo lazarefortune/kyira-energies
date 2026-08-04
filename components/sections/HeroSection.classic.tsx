@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { aboutHighlightIcon, ctaArrowIcon, scrollDownIcon } from "@/lib/icons";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics";
 import { easeOut, motionDelay, motionDuration } from "@/lib/motion";
 
 const TITLE_ACCENT = "récupération de chaleur";
@@ -133,6 +134,13 @@ export function HeroSectionClassic() {
               variant="light"
               size="lg"
               className="font-semibold"
+              onClick={() => {
+                trackEvent(ANALYTICS_EVENTS.HERO_PRIMARY_CTA_CLICKED, {
+                  cta_location: "hero",
+                  cta_label: hero.primaryCta.label,
+                  link_target: hero.primaryCta.href,
+                });
+              }}
             >
               {hero.primaryCta.label}
               <Icon icon={ctaArrowIcon} size={18} className="ml-2" />
@@ -142,6 +150,13 @@ export function HeroSectionClassic() {
               variant="outline"
               size="lg"
               className="border-white/35 text-white hover:bg-white/10"
+              onClick={() => {
+                trackEvent(ANALYTICS_EVENTS.HERO_SECONDARY_CTA_CLICKED, {
+                  cta_location: "hero",
+                  cta_label: hero.secondaryCta.label,
+                  link_target: hero.secondaryCta.href,
+                });
+              }}
             >
               {hero.secondaryCta.label}
             </Button>

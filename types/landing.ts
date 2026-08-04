@@ -127,6 +127,8 @@ export type TestimonialsContent = {
 };
 
 export type FAQItem = {
+  /** Identifiant stable pour l’analytics (slug défini dans le contenu). */
+  id: string;
   question: string;
   answer: string;
 };

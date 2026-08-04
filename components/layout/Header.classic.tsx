@@ -5,6 +5,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/Container";
 import { Logo } from "@/components/ui/Logo";
+import { ANALYTICS_EVENTS, trackEvent } from "@/lib/analytics";
 import { manrope } from "@/lib/fonts";
 import { cn, resolveSectionHref } from "@/lib/utils";
 import { Icon } from "../ui/Icon";
@@ -109,6 +110,11 @@ export function HeaderClassic() {
           <a
             href={resolveSectionHref("#accueil")}
             className="inline-flex shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            onClick={() => {
+              trackEvent(ANALYTICS_EVENTS.LOGO_CLICKED, {
+                link_target: "#accueil",
+              });
+            }}
           >
             <Logo priority />
           </a>
@@ -123,6 +129,12 @@ export function HeaderClassic() {
                       "text-base font-semibold transition-colors",
                       "hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                     )}
+                    onClick={() => {
+                      trackEvent(ANALYTICS_EVENTS.NAVIGATION_LINK_CLICKED, {
+                        link_target: link.href,
+                        device_navigation_type: "desktop",
+                      });
+                    }}
                   >
                     {link.label}
                   </a>
@@ -141,7 +153,14 @@ export function HeaderClassic() {
             aria-expanded={isMenuOpen}
             aria-controls={menuId}
             aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-            onClick={() => setIsMenuOpen((open) => !open)}
+            onClick={() => {
+              setIsMenuOpen((open) => {
+                if (!open) {
+                  trackEvent(ANALYTICS_EVENTS.MOBILE_MENU_OPENED);
+                }
+                return !open;
+              });
+            }}
           >
             <Icon
               icon={isMenuOpen ? Cancel01Icon : Menu09Icon}
@@ -174,7 +193,13 @@ export function HeaderClassic() {
                     <a
                       href={resolveSectionHref(link.href)}
                       tabIndex={isMenuOpen ? undefined : -1}
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={() => {
+                        trackEvent(ANALYTICS_EVENTS.NAVIGATION_LINK_CLICKED, {
+                          link_target: link.href,
+                          device_navigation_type: "mobile",
+                        });
+                        setIsMenuOpen(false);
+                      }}
                       className={cn(
                         "block rounded-2xl px-2 py-3 text-base font-semibold text-muted",
                         "transition-colors hover:bg-primary-50 hover:text-foreground",
