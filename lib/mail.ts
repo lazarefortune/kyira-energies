@@ -20,6 +20,89 @@ function sanitizeHeaderValue(value: string): string {
   return value.replace(/[\r\n]+/g, " ").trim();
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function formatReceivedAt(): string {
+  return new Date().toLocaleString("fr-FR", {
+    timeZone: "Europe/Paris",
+    dateStyle: "long",
+    timeStyle: "short",
+  });
+}
+
+function buildContactSubject(name: string): string {
+  return name
+    ? `Demande de contact de ${name}`
+    : "Nouvelle demande de contact";
+}
+
+function buildContactText(payload: {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  message: string;
+  receivedAt: string;
+}): string {
+  const lines = [payload.message, "", payload.name, payload.company, payload.email];
+
+  if (payload.phone) {
+    lines.push(`Téléphone : ${payload.phone}`);
+  }
+
+  lines.push(
+    "",
+    "---",
+    "Message transmis depuis le formulaire de contact de kyira-energies.com.",
+    `Reçu le ${payload.receivedAt}.`,
+  );
+
+  return lines.join("\n");
+}
+
+function buildContactHtml(payload: {
+  name: string;
+  company: string;
+  email: string;
+  phone: string;
+  message: string;
+  receivedAt: string;
+}): string {
+  const messageHtml = escapeHtml(payload.message).replace(/\r\n|\r|\n/g, "<br>");
+  const signatureParts = [
+    escapeHtml(payload.name),
+    escapeHtml(payload.company),
+    escapeHtml(payload.email),
+  ];
+
+  if (payload.phone) {
+    signatureParts.push(`Téléphone : ${escapeHtml(payload.phone)}`);
+  }
+
+  return [
+    "<!DOCTYPE html>",
+    '<html lang="fr">',
+    "<head><meta charset=\"utf-8\"></head>",
+    '<body style="margin:0;padding:16px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;color:#111111;">',
+    `<p style="margin:0 0 24px 0;white-space:pre-wrap;">${messageHtml}</p>`,
+    `<p style="margin:0 0 24px 0;">${signatureParts.join("<br>")}</p>`,
+    '<hr style="border:none;border-top:1px solid #cccccc;margin:0 0 16px 0;">',
+    '<p style="margin:0;font-size:12px;line-height:1.4;color:#666666;">',
+    "Message transmis depuis le formulaire de contact de kyira-energies.com.<br>",
+    `Reçu le ${escapeHtml(payload.receivedAt)}.`,
+    "</p>",
+    "</body>",
+    "</html>",
+  ].join("");
+}
+
 export function isMailConfigured(): boolean {
   return Boolean(
     process.env.RESEND_API_KEY?.trim() &&
@@ -46,32 +129,19 @@ export async function sendContactEmail(
   const email = sanitizeHeaderValue(payload.email);
   const phone = payload.phone ? sanitizeHeaderValue(payload.phone) : "";
   const message = payload.message.trim();
-  const receivedAt = new Date().toLocaleString("fr-FR", {
-    timeZone: "Europe/Paris",
-    dateStyle: "long",
-    timeStyle: "short",
-  });
+  const receivedAt = formatReceivedAt();
 
-  const text = [
-    "Nouvelle demande via le formulaire de contact.",
-    "",
-    `Nom : ${name}`,
-    `Entreprise : ${company}`,
-    `Email : ${email}`,
-    `Téléphone : ${phone || "Non renseigné"}`,
-    "",
-    "Message :",
-    message,
-    "",
-    `Date de réception : ${receivedAt}`,
-  ].join("\n");
+  const content = { name, company, email, phone, message, receivedAt };
+  const text = buildContactText(content);
+  const html = buildContactHtml(content);
 
   const { error } = await resend.emails.send({
     from,
     to,
     replyTo: email,
-    subject: "Nouvelle demande depuis le site KYIRA ENERGIES",
+    subject: buildContactSubject(name),
     text,
+    html,
   });
 
   if (error) {
