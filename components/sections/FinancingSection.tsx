@@ -23,7 +23,7 @@ function FinancingTitle({ title, accent }: { title: string; accent: string }) {
   return (
     <>
       {before}
-      <span className="font-editorial-new font-medium italic text-primary-300">
+      <span className="font-editorial-new font-medium italic text-primary-200">
         {accent}
       </span>
       {after}
@@ -39,7 +39,7 @@ export function FinancingSection() {
     <section
       id={financing.id}
       aria-labelledby="financing-title"
-      className="bg-primary py-8 sm:py-10"
+      className="bg-primary-800 py-10 sm:py-12"
     >
       <Container as="div">
         <motion.div
@@ -52,30 +52,22 @@ export function FinancingSection() {
             ease: easeOut,
           }}
         >
-          <div className="flex min-w-0 flex-1 items-start gap-5 sm:items-center sm:gap-7">
-            {/* <p
-              className="shrink-0 font-editorial-new text-4xl font-medium leading-none text-white italic sm:text-5xl"
-              aria-hidden="true"
+          <div className="min-w-0 flex-1">
+            <h2
+              id="financing-title"
+              className="font-semibold text-center tracking-tight text-white text-2xl lg:text-3xl lg:leading-snug"
             >
-              {financing.visualValue}
-            </p> */}
-            <div className="min-w-0">
-              <h2
-                id="financing-title"
-                className="text-lg font-semibold tracking-tight text-white sm:text-xl lg:text-2xl lg:leading-snug"
-              >
-                <FinancingTitle
-                  title={financing.title}
-                  accent={financing.titleAccent}
-                />
-              </h2>
-              <p className="mt-1.5 text-sm leading-relaxed text-primary-foreground/65">
-                {financing.supportText}
-              </p>
-            </div>
+              <FinancingTitle
+                title={financing.title}
+                accent={financing.titleAccent}
+              />
+            </h2>
+            <p className="mt-1.5 text-center text-base leading-relaxed text-primary-foreground/70">
+              {financing.supportText}
+            </p>
           </div>
 
-          <Button
+          {/* <Button
             href={financing.cta.href}
             variant="light"
             size="lg"
@@ -85,7 +77,7 @@ export function FinancingSection() {
             <span className="ml-2 inline-flex">
               <Icon icon={ctaArrowIcon} size={18} />
             </span>
-          </Button>
+          </Button> */}
         </motion.div>
       </Container>
     </section>

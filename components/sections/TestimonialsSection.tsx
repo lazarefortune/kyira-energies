@@ -1,21 +1,19 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 
 import { landingContent } from "@/content/landing";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
-import {
-  testimonialQuoteIcon,
-  testimonialSmileIcon,
-} from "@/lib/icons";
+import { trustedByIcon } from "@/lib/icons";
 import {
   easeOut,
   motionDelay,
   motionDuration,
   motionViewport,
 } from "@/lib/motion";
-import type { TestimonialItem } from "@/types/landing";
+import type { TrustedByLogoItem } from "@/types/landing";
 
 function WaveTop() {
   return (
@@ -72,41 +70,46 @@ function DecorativeShapes() {
   );
 }
 
-function TestimonialCard({ item }: { item: TestimonialItem }) {
+function TrustedByTitle({ title, accent }: { title: string; accent?: string }) {
+  if (!accent || !title.includes(accent)) {
+    return <>{title}</>;
+  }
+
+  const [before, after] = title.split(accent);
+
   return (
-    <article className="relative flex h-full flex-col rounded-2xl bg-primary-foreground/10 px-6 pb-14 pt-6 sm:px-7 sm:pb-16 sm:pt-7">
-      <Icon
-        icon={testimonialQuoteIcon}
-        size={28}
-        strokeWidth={2}
-        className="text-primary-300"
-      />
-      <h3 className="mt-4 text-lg font-semibold text-primary-foreground sm:text-xl">
-        {item.title}
-      </h3>
-      <p className="mt-3 flex-1 text-sm leading-relaxed text-primary-foreground/80 sm:text-base">
-        {item.quote}
-      </p>
-      <div className="mt-6 flex items-end justify-end gap-3 pr-10 sm:pr-12">
-        <div className="text-right">
-          <p className="text-sm font-semibold text-primary-foreground">
-            {item.author}
-          </p>
-          <p className="mt-0.5 text-xs text-primary-foreground/65">{item.role}</p>
-        </div>
-      </div>
-      <span
-        className="absolute -bottom-5 right-5 flex size-12 items-center justify-center rounded-full border-2 border-primary bg-primary-700 text-sm font-semibold text-primary-foreground sm:right-6 sm:size-14 sm:text-base"
-        aria-hidden="true"
-      >
-        {item.initials}
+    <>
+      {before}
+      <span className="font-editorial-new font-medium italic text-primary-300">
+        {accent}
       </span>
+      {after}
+    </>
+  );
+}
+
+function LogoCard({ item }: { item: TrustedByLogoItem }) {
+  return (
+    <article className="relative flex h-full min-h-28 items-center justify-center rounded-2xl bg-primary-foreground/10 px-6 py-8 sm:min-h-32 sm:px-7 sm:py-10">
+      {item.logo ? (
+        <Image
+          src={item.logo}
+          alt={item.alt}
+          width={160}
+          height={64}
+          className="h-10 w-auto max-w-36 object-contain opacity-90 sm:h-12 sm:max-w-44"
+        />
+      ) : (
+        <span className="text-center text-sm font-semibold tracking-wide text-primary-foreground/55 sm:text-base">
+          {item.name}
+        </span>
+      )}
     </article>
   );
 }
 
 export function TestimonialsSection() {
-  const { testimonials } = landingContent;
+  const { trustedBy } = landingContent;
   const prefersReducedMotion = useReducedMotion();
 
   const fadeUp = {
@@ -138,7 +141,7 @@ export function TestimonialsSection() {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: motionDelay(prefersReducedMotion, 0.12),
+        staggerChildren: motionDelay(prefersReducedMotion, 0.1),
         delayChildren: motionDelay(prefersReducedMotion, 0.15),
       },
     },
@@ -146,8 +149,8 @@ export function TestimonialsSection() {
 
   return (
     <section
-      id={testimonials.id}
-      aria-labelledby="testimonials-stat"
+      id={trustedBy.id}
+      aria-labelledby="trusted-by-title"
       className="relative overflow-hidden bg-primary pt-28 pb-32 sm:pt-36 sm:pb-40"
     >
       <WaveTop />
@@ -155,15 +158,15 @@ export function TestimonialsSection() {
       <DecorativeShapes />
 
       <p
-        className="pointer-events-none absolute inset-x-0 top-[18%] z-0 text-center font-heading text-[18vw] font-bold leading-none tracking-tight text-primary-foreground/[0.06] select-none sm:top-[16%] sm:text-[12rem]"
+        className="pointer-events-none absolute inset-x-0 top-[18%] z-0 text-center font-heading text-[12vw] font-bold leading-none tracking-tight text-primary-foreground/6 select-none sm:top-[16%] sm:text-[10rem]"
         aria-hidden="true"
       >
-        {testimonials.watermark}
+        {trustedBy.watermark}
       </p>
 
       <Container as="div" className="relative z-10">
         <motion.header
-          className="mx-auto flex max-w-md flex-col items-center text-center"
+          className="mx-auto flex max-w-2xl flex-col items-center text-center"
           initial="hidden"
           whileInView="visible"
           viewport={motionViewport}
@@ -173,41 +176,43 @@ export function TestimonialsSection() {
             variants={fadeUp}
             className="mb-2 inline-flex text-primary-300"
           >
-            <Icon icon={testimonialSmileIcon} size={28} strokeWidth={1.75} />
+            <Icon icon={trustedByIcon} size={28} strokeWidth={1.75} />
           </motion.span>
-          <motion.p
-            id="testimonials-stat"
+          <motion.h2
+            id="trusted-by-title"
             variants={fadeUp}
-            className="font-heading text-5xl font-bold tracking-tight text-primary-foreground sm:text-6xl"
+            className="font-heading text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl lg:text-5xl"
           >
-            {testimonials.statValue}
-            <span className="ml-1 text-4xl sm:text-5xl">
-              {testimonials.statSuffix}
-            </span>
-          </motion.p>
+            <TrustedByTitle
+              title={trustedBy.title}
+              accent={trustedBy.titleAccent}
+            />
+          </motion.h2>
           <motion.span
             variants={fadeUp}
             className="mt-3 h-0.5 w-8 rounded-full bg-primary-300"
             aria-hidden="true"
           />
-          <motion.p
-            variants={fadeUp}
-            className="mt-3 text-base text-primary-foreground/90 sm:text-lg"
-          >
-            {testimonials.statLabel}
-          </motion.p>
+          {trustedBy.description ? (
+            <motion.p
+              variants={fadeUp}
+              className="mt-3 max-w-md text-base text-primary-foreground/90 sm:text-lg"
+            >
+              {trustedBy.description}
+            </motion.p>
+          ) : null}
         </motion.header>
 
         <motion.ul
-          className="mx-auto mt-12 grid max-w-4xl gap-10 sm:mt-16 sm:grid-cols-2 sm:gap-8 lg:mt-20"
+          className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:mt-16 sm:grid-cols-3 sm:gap-6 lg:mt-20"
           initial="hidden"
           whileInView="visible"
           viewport={motionViewport}
           variants={cardStagger}
         >
-          {testimonials.items.map((item) => (
-            <motion.li key={item.author} variants={fadeUp} className="h-full">
-              <TestimonialCard item={item} />
+          {trustedBy.items.map((item) => (
+            <motion.li key={item.name} variants={fadeUp} className="h-full">
+              <LogoCard item={item} />
             </motion.li>
           ))}
         </motion.ul>

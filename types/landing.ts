@@ -108,22 +108,21 @@ export type TrustContent = {
   items: TrustItem[];
 };
 
-export type TestimonialItem = {
-  title: string;
-  quote: string;
-  author: string;
-  role: string;
-  initials: string;
+export type TrustedByLogoItem = {
+  /** Nom affiché en fallback tant que le logo n’est pas fourni. */
+  name: string;
+  /** Chemin public du logo (SVG/PNG). Absent = placeholder texte. */
+  logo?: string;
+  alt: string;
 };
 
-export type TestimonialsContent = {
+export type TrustedByContent = {
   id: string;
   watermark: string;
-  /** Placeholder statistic — replace with a confirmed client volume before publish. */
-  statValue: string;
-  statSuffix: string;
-  statLabel: string;
-  items: TestimonialItem[];
+  title: string;
+  titleAccent?: string;
+  description?: string;
+  items: TrustedByLogoItem[];
 };
 
 export type FAQItem = {
@@ -210,7 +209,7 @@ export type SiteContent = {
   financing: FinancingContent;
   method: MethodContent;
   sectors: SectorsContent;
-  testimonials: TestimonialsContent;
+  trustedBy: TrustedByContent;
   faq: FAQContent;
   contact: ContactContent;
   footer: FooterContent;
