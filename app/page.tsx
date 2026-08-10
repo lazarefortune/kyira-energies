@@ -6,7 +6,8 @@ import { HeroSection } from "@/components/sections/HeroSection";
 import { MethodSection } from "@/components/sections/MethodSection";
 import { SectorsSection } from "@/components/sections/SectorsSection";
 import { ServicesSection } from "@/components/sections/ServicesSection";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+// TODO: réactiver la section "Ils m'ont fait confiance"
+// import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
 import { SectionViewTracker } from "@/components/analytics/SectionViewTracker";
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
       <FinancingSection />
       <MethodSection />
       <SectorsSection />
-      <TestimonialsSection />
+      {/* <TestimonialsSection /> */}
       <FAQSection />
       <ContactSection />
       <SectionViewTracker />
