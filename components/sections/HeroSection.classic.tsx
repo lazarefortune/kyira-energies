@@ -23,7 +23,7 @@ function HeroTitle({ title }: { title: string }) {
   return (
     <>
       {before}
-      <span className="font-editorial-new text-primary-400 font-medium italic">
+      <span className="font-instrument-serif text-primary-400 font-normal italic">
         {TITLE_ACCENT}
       </span>
       {after}

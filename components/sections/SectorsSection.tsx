@@ -25,7 +25,7 @@ function SectorsTitle({ title, accent }: { title: string; accent: string }) {
   return (
     <>
       {before}
-      <span className="font-editorial-new text-primary-500 font-medium italic">
+      <span className="font-instrument-serif text-primary-500 font-normal italic">
         {accent}
       </span>
       {after}

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { type FormEvent, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -464,6 +466,18 @@ export function ContactForm() {
           ) : null}
         </AnimatePresence>
       </div>
+      <p className="mt-4 text-xs leading-relaxed text-muted">
+        Les données saisies sont traitées par KYIRA ENERGIES pour répondre à
+        votre demande. Pour en savoir plus sur la gestion de vos données et vos
+        droits, consultez notre{" "}
+        <Link
+          href="/politique-confidentialite"
+          className="font-medium text-primary underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+        >
+          politique de confidentialité
+        </Link>
+        .
+      </p>
     </form>
   );
 }

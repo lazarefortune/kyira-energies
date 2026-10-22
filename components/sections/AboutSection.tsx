@@ -24,7 +24,7 @@ function AboutTitle({ title, accent }: { title: string; accent: string }) {
   return (
     <>
       {before}
-      <span className="font-editorial-new text-primary-500 font-medium italic">
+      <span className="font-instrument-serif text-primary-500 font-normal italic">
         {accent}
       </span>
       {after}
@@ -108,7 +108,7 @@ export function AboutSection() {
                 fill
                 quality={95}
                 sizes="(max-width: 1024px) 90vw, (max-width: 1280px) 45vw, 560px"
-                className="object-cover object-center"
+                className="object-cover object-[30%_center]"
               />
               <div className="absolute top-0 left-7 h-7 w-7 bg-white"></div>
               <div className="absolute top-7 left-0 h-7 w-7 bg-white"></div>

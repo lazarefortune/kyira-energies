@@ -80,7 +80,7 @@ function TrustedByTitle({ title, accent }: { title: string; accent?: string }) {
   return (
     <>
       {before}
-      <span className="font-editorial-new font-medium italic text-primary-300">
+      <span className="font-instrument-serif font-normal italic text-primary-300">
         {accent}
       </span>
       {after}

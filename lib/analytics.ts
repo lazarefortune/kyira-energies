@@ -159,23 +159,47 @@ function buildEventProperties(
   return merged;
 }
 
+/** Aucun appel réseau PostHog avant un consentement valide. */
+function initializeAnalytics(): void {
+  if (!isBrowser() || !hasAcceptedConsent()) return;
+  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+
+  if (!key || !host) return;
+  if (posthog.__loaded) return;
+
+  posthog.init(key, {
+    api_host: host,
+    opt_out_capturing_by_default: true,
+    opt_out_persistence_by_default: true,
+    cookie_expiration: 180,
+    capture_pageview: true,
+    autocapture: false,
+    disable_session_recording: true,
+    person_profiles: "never",
+    session_recording: {
+      maskAllInputs: true,
+      // Classes supportées par posthog-js (defaults rrweb) : ph-no-capture, ph-mask
+      blockSelector:
+        '[data-ph-block="turnstile"], .cf-turnstile, iframe[src*="challenges.cloudflare.com"]',
+      recordHeaders: false,
+      recordBody: false,
+    },
+  });
+}
+
 function enableAnalyticsCapture(): void {
+  // Renouvelle les identifiants uniquement une fois le consentement accepté.
+  if (posthog.has_opted_out_capturing()) posthog.reset(true);
   captureFirstTouchAttribution();
   posthog.opt_in_capturing();
   posthog.startSessionRecording();
 }
 
-/**
- * Arrête le replay, opt-out, puis reset local.
- * `reset()` remet le consentement PostHog en PENDING : on réapplique
- * `opt_out_capturing()` immédiatement. Avec `opt_out_capturing_by_default`,
- * aucun événement ne part pendant ni après cette séquence.
- */
+/** Arrête la collecte et efface la persistance analytique au retrait. */
 function disableAnalyticsCapture(): void {
+  posthog.opt_out_capturing();
   posthog.stopSessionRecording();
-  posthog.opt_out_capturing();
-  posthog.reset(true);
-  posthog.opt_out_capturing();
   clearFirstTouchAttribution();
 }
 
@@ -187,7 +211,11 @@ export function applyAnalyticsConsent(value: CookieConsentValue): void {
   setConsent(value);
 
   if (!isBrowser()) return;
-  if (!posthog.__loaded) return;
+  if (value === "accepted") initializeAnalytics();
+  if (!posthog.__loaded) {
+    if (value === "rejected") clearFirstTouchAttribution();
+    return;
+  }
 
   if (value === "accepted") {
     enableAnalyticsCapture();
@@ -201,6 +229,7 @@ export function applyAnalyticsConsent(value: CookieConsentValue): void {
  */
 export function syncAnalyticsConsentFromStorage(): void {
   if (!isBrowser()) return;
+  initializeAnalytics();
   if (!posthog.__loaded) return;
 
   if (hasAcceptedConsent()) {

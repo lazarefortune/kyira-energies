@@ -1,8 +1,8 @@
 export const COOKIE_CONSENT_KEY = "kyira_cookie_consent";
 export const OPEN_COOKIE_PREFERENCES_EVENT = "kyira:open-cookie-preferences";
 
-/** Durée de conservation du choix : 13 mois (pratique CNIL courante). */
-export const COOKIE_CONSENT_MAX_AGE_SECONDS = 13 * 30 * 24 * 60 * 60;
+/** Durée de conservation du choix : 6 mois. */
+export const COOKIE_CONSENT_MAX_AGE_SECONDS = 6 * 30 * 24 * 60 * 60;
 
 export type CookieConsentValue = "accepted" | "rejected";
 
@@ -36,7 +36,7 @@ function writeConsentCookie(value: CookieConsentValue): void {
     window.location.protocol === "https:" ? "; Secure" : "";
 
   document.cookie = [
-    `${encodeURIComponent(COOKIE_CONSENT_KEY)}=${encodeURIComponent(value)}`,
+    `${encodeURIComponent(COOKIE_CONSENT_KEY)}=${encodeURIComponent(`v2:${value}`)}`,
     "Path=/",
     `Max-Age=${COOKIE_CONSENT_MAX_AGE_SECONDS}`,
     "SameSite=Lax",
@@ -46,31 +46,27 @@ function writeConsentCookie(value: CookieConsentValue): void {
     .join("; ");
 }
 
-/** Migre un ancien choix localStorage vers le cookie, puis nettoie le localStorage. */
-function migrateLegacyLocalStorageConsent(): CookieConsentValue | null {
-  if (!isBrowser()) return null;
-
-  try {
-    const legacy = window.localStorage.getItem(COOKIE_CONSENT_KEY);
-    if (!isConsentValue(legacy)) return null;
-
-    writeConsentCookie(legacy);
-    window.localStorage.removeItem(COOKIE_CONSENT_KEY);
-    return legacy;
-  } catch {
-    return null;
-  }
-}
-
+/** Les choix antérieurs à la politique de 6 mois doivent être renouvelés. */
 export function getConsent(): CookieConsentValue | null {
   if (!isBrowser()) return null;
 
   const fromCookie = readCookie(COOKIE_CONSENT_KEY);
-  if (isConsentValue(fromCookie)) {
-    return fromCookie;
+  const currentValue = fromCookie?.startsWith("v2:")
+    ? fromCookie.slice(3)
+    : null;
+  if (isConsentValue(currentValue)) {
+    return currentValue;
   }
 
-  return migrateLegacyLocalStorageConsent();
+  if (fromCookie !== null) {
+    document.cookie = `${encodeURIComponent(COOKIE_CONSENT_KEY)}=; Path=/; Max-Age=0; SameSite=Lax`;
+  }
+  try {
+    window.localStorage.removeItem(COOKIE_CONSENT_KEY);
+  } catch {
+    // Ignore localStorage errors (mode privé strict, etc.).
+  }
+  return null;
 }
 
 export function setConsent(value: CookieConsentValue): void {

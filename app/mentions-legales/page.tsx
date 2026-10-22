@@ -99,14 +99,19 @@ export default function MentionsLegalesPage() {
         <Container as="div">
           <article className="mx-auto max-w-3xl">
             <BackLink />
+            <p className="mt-4 text-sm text-muted">
+              Dernière mise à jour : <time dateTime="2026-10-22">22 octobre 2026</time>.
+            </p>
 
             <div className="mt-10 space-y-10">
               <LegalSection title="Éditeur du site">
                 <InfoRow label="Dénomination sociale" value="KYIRA ENERGIES" />
                 <InfoRow
                   label="Forme juridique"
-                  value="SAS, société par actions simplifiée"
+                  value="SASU, société par actions simplifiée unipersonnelle"
                 />
+                <InfoRow label="Capital social" value="10 000 €" />
+                <InfoRow label="RCS" value="Pontoise 943 087 775" />
                 <InfoRow label="SIREN" value="943 087 775" />
                 <InfoRow label="SIRET" value="943 087 775 00012" />
                 <InfoRow
@@ -118,21 +123,17 @@ export default function MentionsLegalesPage() {
                   label="Activité principale"
                   value="Activités spécialisées, scientifiques et techniques diverses"
                 />
-                <InfoRowPending
+                <InfoRow
                   label="Numéro de TVA intracommunautaire"
-                  skeletonClassName="w-44"
-                  pendingLabel="Numéro de TVA intracommunautaire à compléter"
+                  value="FR26943087775"
                 />
               </LegalSection>
 
               <LegalSection title="Directeur de la publication">
-                <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
-                  <span>Directeur de la publication :</span>
-                  <PendingValue
-                    className="w-52"
-                    label="Directeur de la publication à compléter"
-                  />
-                </p>
+                <InfoRow
+                  label="Directeur de la publication"
+                  value="Yannis ASSEKO-ONDO-MIAME, Président de KYIRA ENERGIES"
+                />
               </LegalSection>
 
               <LegalSection title="Contact">
@@ -160,29 +161,59 @@ export default function MentionsLegalesPage() {
               </LegalSection>
 
               <LegalSection title="Hébergement">
-                <p>
-                  Les informations relatives à l&apos;hébergement seront complétées
-                  avant la mise en ligne.
-                </p>
-                <InfoRowPending
-                  label="Nom de l'hébergeur"
-                  skeletonClassName="w-40"
-                  pendingLabel="Nom de l'hébergeur à compléter"
-                />
-                <InfoRowPending
+                <InfoRow label="Nom de l'hébergeur" value="Netlify, Inc." />
+                <InfoRow
                   label="Adresse"
-                  skeletonClassName="w-64 max-w-full"
-                  pendingLabel="Adresse de l'hébergeur à compléter"
+                  value="101 2nd Street, San Francisco, CA 94105, États-Unis"
+                />
+                <InfoRow
+                  label="Site web"
+                  value={
+                    <a
+                      href="https://www.netlify.com/"
+                      className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    >
+                      www.netlify.com
+                    </a>
+                  }
                 />
                 <InfoRowPending
-                  label="Site web"
-                  skeletonClassName="w-52"
-                  pendingLabel="Site web de l'hébergeur à compléter"
+                  label="Téléphone de l'hébergeur"
+                  skeletonClassName="w-36"
+                  pendingLabel="Numéro de téléphone de Netlify à confirmer"
+                />
+              </LegalSection>
+
+              <LegalSection title="Prestataires techniques">
+                <p>
+                  Les prestataires suivants interviennent dans le traitement et
+                  le stockage des données liées au fonctionnement du site :
+                </p>
+                <InfoRow
+                  label="PostHog (mesure d’audience et enregistrement des sessions)"
+                  value="PostHog, Inc., 2261 Market Street #4008, San Francisco, CA 94114, États-Unis"
+                />
+                <InfoRow
+                  label="Resend (acheminement des messages du formulaire)"
+                  value="Plus Five Five, Inc. (Resend), 2261 Market Street #5039, San Francisco, CA 94114, États-Unis"
+                />
+                <InfoRow
+                  label="Cloudflare Turnstile (protection contre les envois automatisés)"
+                  value="Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis"
                 />
               </LegalSection>
 
               <LegalSection title="Conception et développement du site">
-                <p>Conception et développement : Lazare Fortune.</p>
+                <p>
+                  Conception et développement :{" "}
+                  <a
+                    href="https://lazarefortune.com"
+                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    Lazare Fortune
+                  </a>
+                  .
+                </p>
               </LegalSection>
 
               <LegalSection title="Propriété intellectuelle">
@@ -200,37 +231,82 @@ export default function MentionsLegalesPage() {
                 </p>
               </LegalSection>
 
+              <LegalSection title="Crédits photographiques">
+                <p>
+                  Photographie des trois aérations en tête de la page
+                  d&apos;accueil :{' '}
+                  <a
+                    href="https://unsplash.com/fr/@elimendeinagella"
+                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    Elimende Inagella
+                  </a>{' '}
+                  sur{' '}
+                  <a
+                    href="https://unsplash.com/fr/photos/photo-en-niveaux-de-gris-dun-cadre-metallique-rond-zx7VUt9txos"
+                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    Unsplash
+                  </a>
+                  , utilisée sous{' '}
+                  <a
+                    href="https://unsplash.com/fr/licence"
+                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    licence Unsplash
+                  </a>
+                  .
+                </p>
+                <p>
+                  Photographie de ventilation en toiture : {" "}
+                  <a href="https://www.pexels.com/photo/ventilation-system-on-roof-of-building-7396978/" className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                    Alexander Grigorian sur Pexels
+                  </a>
+                  , utilisée sous{" "}
+                  <a href="https://www.pexels.com/license/" className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                    licence Pexels
+                  </a>
+                  .
+                </p>
+                <p>
+                  Photographie d’inspection d’une unité de climatisation : {" "}
+                  <a href="https://www.pexels.com/photo/technician-inspecting-outdoor-hvac-unit-32497161/" className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                    Kathleen Austin Kuhn sur Pexels
+                  </a>
+                  , utilisée sous{" "}
+                  <a href="https://www.pexels.com/license/" className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                    licence Pexels
+                  </a>
+                  .
+                </p>
+              </LegalSection>
+
               <LegalSection title="Données personnelles">
                 <p>
-                  Les informations transmises via le formulaire de contact sont
-                  utilisées uniquement pour répondre aux demandes envoyées à
-                  KYIRA ENERGIES.
-                </p>
-                <p>
-                  Les données collectées peuvent inclure le nom,
-                  l&apos;entreprise, l&apos;adresse email, le numéro de
-                  téléphone et le contenu du message.
-                </p>
-                <p>Ces informations ne sont pas vendues à des tiers.</p>
-                <p className="flex flex-wrap items-center gap-x-1 gap-y-1.5">
-                  <span>
-                    Pour toute demande relative à vos données personnelles, vous
-                    pouvez contacter KYIRA ENERGIES à l&apos;adresse suivante :
-                  </span>
-                  <PendingValue
-                    className="w-48"
-                    label="Adresse email pour les données personnelles à compléter"
-                  />
-                  <span>.</span>
+                  Les informations relatives aux données collectées, aux finalités
+                  des traitements, aux prestataires techniques et à vos droits
+                  sont détaillées dans notre{" "}
+                  <Link
+                    href="/politique-confidentialite"
+                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    politique de confidentialité
+                  </Link>
+                  .
                 </p>
               </LegalSection>
 
               <LegalSection title="Cookies et mesure d'audience">
                 <p>
-                  Le site peut utiliser des outils de mesure d&apos;audience afin
-                  de comprendre l&apos;utilisation du site et d&apos;améliorer
-                  son contenu. Les outils effectivement utilisés seront précisés
-                  avant la mise en ligne.
+                  Les informations relatives aux cookies et au traitement des
+                  données personnelles figurent dans la{" "}
+                  <Link
+                    href="/politique-confidentialite"
+                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    politique de confidentialité
+                  </Link>
+                  .
                 </p>
               </LegalSection>
 

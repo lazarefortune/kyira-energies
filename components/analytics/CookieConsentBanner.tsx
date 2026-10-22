@@ -63,8 +63,9 @@ export function CookieConsentBanner({
                 id="cookie-consent-description"
                 className="text-sm leading-relaxed text-muted"
               >
-                Nous utilisons des cookies pour mesurer l&apos;audience et
-                améliorer le site.{" "}
+                Avec votre accord, PostHog mesure l&apos;audience et enregistre
+                votre navigation pour améliorer le site. Les champs du formulaire
+                sont masqués.{" "}
                 <Link
                   href="/politique-confidentialite"
                   className="font-medium text-primary-700 underline-offset-2 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
@@ -91,7 +92,7 @@ export function CookieConsentBanner({
                 size="md"
                 onClick={onReject}
                 aria-label="Refuser les cookies de mesure d'audience"
-                className="order-2 w-full sm:order-2 sm:w-auto"
+                className="order-2 w-full sm:order-2 sm:w-28"
               >
                 Refuser
               </Button>
@@ -101,7 +102,7 @@ export function CookieConsentBanner({
                 size="md"
                 onClick={onAccept}
                 aria-label="Accepter les cookies de mesure d'audience"
-                className="order-1 w-full sm:order-3 sm:w-auto"
+                className="order-1 w-full sm:order-3 sm:w-28"
               >
                 Accepter
               </Button>

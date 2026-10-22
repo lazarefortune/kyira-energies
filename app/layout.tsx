@@ -8,7 +8,7 @@ import { BackToTop } from "@/components/ui/BackToTop";
 import { MotionProvider } from "@/components/ui/MotionProvider";
 import { ToastProvider } from "@/components/ui/Toast";
 import { landingContent } from "@/content/landing";
-import { archivo, editorialNew, geistMono, manrope } from "@/lib/fonts";
+import { archivo, instrumentSerif, geistMono, manrope } from "@/lib/fonts";
 
 import "./globals.css";
 
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${editorialNew.variable} ${archivo.variable} ${geistMono.variable} ${manrope.variable} h-full scroll-smooth`}
+      className={`${instrumentSerif.variable} ${archivo.variable} ${geistMono.variable} ${manrope.variable} h-full scroll-smooth`}
     >
       <body
         className={`${manrope.className} flex min-h-full flex-col bg-background font-sans font-normal text-foreground antialiased`}

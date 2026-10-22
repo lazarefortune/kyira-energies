@@ -44,7 +44,7 @@
   --color-primary-800: var(--primary-800);
   --color-primary-900: var(--primary-900);
   --color-primary-950: var(--primary-950);
-  --font-editorial-new: var(--font-family-editorial-new), ui-serif, Georgia, serif;
+  --font-instrument-serif: var(--font-family-instrument-serif), ui-serif, Georgia, serif;
   --font-manrope: var(--font-family-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-archivo: var(--font-family-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-geist-mono: var(--font-family-geist-mono), ui-monospace, monospace;

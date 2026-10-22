@@ -368,7 +368,7 @@ export function MethodSection() {
             className="mt-5 text-2xl font-medium tracking-tight text-foreground sm:text-3xl lg:text-4xl"
           >
             {method.title}{" "}
-            <span className="text-primary-500 font-editorial-new italic font-medium">
+            <span className="text-primary-500 font-instrument-serif italic font-normal">
               {method.titleAccent}
             </span>
           </motion.h2>
@@ -415,7 +415,7 @@ export function MethodSection() {
               fill
               quality={90}
               sizes="(max-width: 1024px) 100vw, 1200px"
-              className="object-cover object-center"
+              className="object-cover object-[65%_center]"
             />
           </motion.div>
 

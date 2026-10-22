@@ -23,7 +23,7 @@ function ContactTitle({ title, accent }: { title: string; accent: string }) {
   return (
     <>
       {before}
-      <span className="font-editorial-new font-medium italic text-primary-400">
+      <span className="font-instrument-serif font-normal italic text-primary-400">
         {accent}
       </span>
       {after}

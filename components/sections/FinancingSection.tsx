@@ -23,7 +23,7 @@ function FinancingTitle({ title, accent }: { title: string; accent: string }) {
   return (
     <>
       {before}
-      <span className="font-editorial-new font-medium italic text-primary-200">
+      <span className="font-instrument-serif font-normal italic text-primary-200">
         {accent}
       </span>
       {after}

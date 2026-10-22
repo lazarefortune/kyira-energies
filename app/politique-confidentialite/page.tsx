@@ -99,13 +99,17 @@ export default function PolitiqueConfidentialitePage() {
         <Container as="div">
           <article className="mx-auto max-w-3xl">
             <BackLink />
+            <p className="mt-4 text-sm text-muted">
+              Dernière mise à jour : <time dateTime="2026-10-22">22 octobre 2026</time>.
+            </p>
 
             <div className="mt-10 space-y-10">
               <LegalSection title="Introduction">
                 <p>
                   La présente politique de confidentialité explique comment KYIRA
                   ENERGIES collecte, utilise et protège les données personnelles
-                  transmises via son site internet.
+                  collectées via son formulaire de contact et, sous réserve de votre
+                  consentement, ses outils de mesure d&apos;audience.
                 </p>
                 <p>
                   KYIRA ENERGIES s&apos;engage à traiter les données
@@ -119,7 +123,7 @@ export default function PolitiqueConfidentialitePage() {
                 <InfoRow label="Dénomination sociale" value="KYIRA ENERGIES" />
                 <InfoRow
                   label="Forme juridique"
-                  value="SAS, société par actions simplifiée"
+                  value="SASU, société par actions simplifiée unipersonnelle"
                 />
                 <InfoRow label="SIREN" value="943 087 775" />
                 <InfoRow label="SIRET" value="943 087 775 00012" />
@@ -150,10 +154,17 @@ export default function PolitiqueConfidentialitePage() {
                   Les champs marqués par un astérisque sont nécessaires pour
                   traiter la demande. Les autres champs sont facultatifs.
                 </p>
+                <p>
+                  Avec votre consentement, PostHog collecte également des données
+                  de navigation : pages consultées, interactions avec le site,
+                  informations techniques sur le navigateur et l&apos;appareil,
+                  identifiants pseudonymes et enregistrements de session. Les
+                  champs du formulaire sont masqués dans les enregistrements.
+                </p>
               </LegalSection>
 
               <LegalSection title="3. Finalités du traitement">
-                <p>Les données collectées sont utilisées uniquement pour :</p>
+                <p>Les données du formulaire de contact sont utilisées pour :</p>
                 <ul className="list-disc space-y-1.5 pl-5">
                   <li>
                     répondre aux demandes envoyées via le formulaire de contact ;
@@ -168,11 +179,18 @@ export default function PolitiqueConfidentialitePage() {
                   </li>
                 </ul>
                 <p>Les données ne sont pas vendues à des tiers.</p>
+                <p>
+                  Sous réserve de votre consentement, les données sont également
+                  utilisées pour mesurer l&apos;audience du site et analyser la
+                  navigation des visiteurs, y compris par l&apos;enregistrement
+                  de sessions, afin d&apos;améliorer son contenu et son ergonomie.
+                </p>
               </LegalSection>
 
               <LegalSection title="4. Base légale du traitement">
                 <p>
-                  Le traitement des données repose sur l&apos;intérêt légitime de
+                  Le traitement des données du formulaire de contact repose sur
+                  l&apos;intérêt légitime de
                   KYIRA ENERGIES à répondre aux demandes reçues via son site
                   internet et à assurer le suivi des échanges avec ses prospects
                   et clients.
@@ -181,6 +199,14 @@ export default function PolitiqueConfidentialitePage() {
                   Lorsque la demande vise à préparer une éventuelle relation
                   contractuelle, le traitement peut également être nécessaire à
                   l&apos;exécution de mesures précontractuelles.
+                </p>
+                <p>
+                  Les données de mesure d&apos;audience collectées par PostHog,
+                  y compris les enregistrements de session, sont traitées sur le
+                  fondement de votre consentement. Vous pouvez le retirer à tout
+                  moment via le lien « Gestion des cookies » en pied de page,
+                  sans que cela affecte la licéité du traitement effectué avant
+                  ce retrait.
                 </p>
               </LegalSection>
 
@@ -197,6 +223,11 @@ export default function PolitiqueConfidentialitePage() {
                   gestion de cette relation et au respect des obligations
                   légales applicables.
                 </p>
+                <ul className="list-disc space-y-1.5 pl-5">
+                  <li>PostHog : événements de mesure d&apos;audience conservés un an ; enregistrements de session conservés 30 jours.</li>
+                  <li>Resend : messages et journaux de livraison conservés 30 jours dans le service d&apos;envoi. Cette durée est distincte de celle des échanges conservés dans la messagerie de KYIRA ENERGIES.</li>
+                  <li>Choix relatif aux cookies : 180 jours au maximum. Les informations d&apos;origine de visite utilisées pour mesurer les conversions sont conservées 30 jours dans votre navigateur, sous réserve de votre consentement.</li>
+                </ul>
               </LegalSection>
 
               <LegalSection title="6. Destinataires des données">
@@ -217,14 +248,51 @@ export default function PolitiqueConfidentialitePage() {
                   ENERGIES via le service d&apos;envoi d&apos;emails Resend,
                   uniquement pour transmettre la demande de contact.
                 </p>
-                <InfoRowPending
+                <p>
+                  Les données de mesure d&apos;audience sont traitées par PostHog,
+                  en qualité de sous-traitant.
+                </p>
+                <InfoRow
                   label="Hébergeur"
-                  skeletonClassName="w-40"
-                  pendingLabel="Hébergeur à confirmer"
+                  value="Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, États-Unis"
                 />
               </LegalSection>
 
-              <LegalSection title="7. Sécurité des données">
+              <LegalSection title="7. Hébergement et transferts internationaux">
+                <p>
+                  Les données de mesure d&apos;audience sont hébergées dans
+                  l&apos;Union européenne, sur PostHog Cloud EU à Francfort.
+                  Le paramétrage du projet prévoit de ne pas conserver
+                  l&apos;adresse IP dans les événements enregistrés. Cela
+                  n&apos;exclut pas son traitement technique lors de la connexion.
+                </p>
+                <p>
+                  Resend conserve le contenu des messages et les journaux de
+                  livraison aux États-Unis. La région choisie pour l&apos;envoi
+                  des emails ne détermine pas le lieu de stockage.
+                  Netlify et Cloudflare peuvent également traiter des données
+                  hors de l&apos;Espace économique européen dans le cadre de
+                  leurs services d&apos;hébergement et de sécurité.
+                  L&apos;hébergement européen de PostHog n&apos;exclut pas des
+                  accès depuis d&apos;autres pays par ses prestataires habilités.
+                </p>
+                <p>
+                  Les documents contractuels des prestataires prévoient des
+                  mécanismes d&apos;encadrement des transferts, notamment les
+                  clauses contractuelles types de la Commission européenne et,
+                  lorsque applicable, le cadre de protection des données
+                  UE–États-Unis (Data Privacy Framework). Vous pouvez consulter
+                  les garanties décrites par{" "}
+                  <a className="text-primary underline" href="https://posthog.com/dpa">PostHog</a>,{" "}
+                  <a className="text-primary underline" href="https://resend.com/security/gdpr">Resend</a>,{" "}
+                  <a className="text-primary underline" href="https://www.netlify.com/gdpr-ccpa/">Netlify</a> et{" "}
+                  <a className="text-primary underline" href="https://www.cloudflare.com/cloudflare-customer-dpa/">Cloudflare</a>,
+                  ou demander des informations à KYIRA ENERGIES par courrier
+                  à son siège social.
+                </p>
+              </LegalSection>
+
+              <LegalSection title="8. Sécurité des données">
                 <p>
                   KYIRA ENERGIES met en œuvre des mesures raisonnables pour
                   protéger les données personnelles contre l&apos;accès non
@@ -232,7 +300,7 @@ export default function PolitiqueConfidentialitePage() {
                 </p>
               </LegalSection>
 
-              <LegalSection title="8. Droits des personnes">
+              <LegalSection title="9. Droits des personnes">
                 <p>
                   Conformément à la réglementation applicable, vous disposez
                   notamment des droits suivants :
@@ -242,6 +310,10 @@ export default function PolitiqueConfidentialitePage() {
                   <li>droit de rectification ;</li>
                   <li>droit d&apos;effacement ;</li>
                   <li>droit d&apos;opposition ;</li>
+                  <li>
+                    droit de retirer votre consentement à tout moment, pour les
+                    traitements qui reposent sur celui-ci.
+                  </li>
                   <li>droit à la limitation du traitement ;</li>
                   <li>
                     droit à la portabilité, lorsque ce droit est applicable.
@@ -264,7 +336,7 @@ export default function PolitiqueConfidentialitePage() {
                 </p>
               </LegalSection>
 
-              <LegalSection title="9. Cookies et mesure d'audience">
+              <LegalSection title="10. Cookies et mesure d'audience">
                 <p>
                   Le site utilise PostHog (Product Analytics) comme outil de
                   mesure d&apos;audience afin de comprendre la navigation et
@@ -275,8 +347,9 @@ export default function PolitiqueConfidentialitePage() {
                 <p>
                   Lorsque vous acceptez les cookies de mesure d&apos;audience,
                   le Session Replay de PostHog peut également être activé. Il
-                  permet de rejouer anonymement le parcours de navigation afin
-                  d&apos;identifier les points de friction. Les champs du
+                  permet de rejouer votre parcours de navigation, associé à un
+                  identifiant pseudonyme, afin d&apos;identifier les points de
+                  friction. Les champs du
                   formulaire de contact sont masqués dans les enregistrements,
                   et le widget Cloudflare Turnstile est exclu du replay.
                 </p>
@@ -287,13 +360,15 @@ export default function PolitiqueConfidentialitePage() {
                   sont pas utilisés si vous refusez. Vous pouvez modifier votre
                   choix à tout moment via le lien «&nbsp;Gestion des
                   cookies&nbsp;» dans le pied de page du site. Ce choix est
-                  mémorisé dans un cookie first-party pendant une durée maximale
-                  de 13 mois.
+                  mémorisé dans un cookie déposé par le site pendant une durée maximale
+                  de 180 jours (environ 6 mois).
                 </p>
                 <p>
                   Les cookies nécessaires au stockage de votre choix de
                   consentement restent actifs afin d&apos;assurer le bon
-                  fonctionnement du site.
+                  fonctionnement du site. Les identifiants de mesure d&apos;audience
+                  sont enregistrés uniquement après acceptation ; le retrait du
+                  consentement arrête la collecte et les enregistrements futurs.
                 </p>
                 <p>
                   Les données collectées via cet outil sont hébergées sur
@@ -304,17 +379,13 @@ export default function PolitiqueConfidentialitePage() {
                 </p>
               </LegalSection>
 
-              <LegalSection title="10. Mise à jour de la politique">
+              <LegalSection title="11. Mise à jour de la politique">
                 <p>
                   La présente politique de confidentialité peut être mise à jour
                   afin de tenir compte des évolutions du site, des outils
                   utilisés ou de la réglementation applicable.
                 </p>
-                <InfoRowPending
-                  label="Dernière mise à jour"
-                  skeletonClassName="w-36"
-                  pendingLabel="Dernière mise à jour à confirmer"
-                />
+
               </LegalSection>
             </div>
 

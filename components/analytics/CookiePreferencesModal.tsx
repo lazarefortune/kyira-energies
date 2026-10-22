@@ -227,8 +227,9 @@ function CookiePreferencesModalContent({
                   Mesure d&apos;audience
                 </p>
                 <p className="text-sm leading-relaxed text-muted">
-                  Ces cookies nous aident à comprendre l&apos;utilisation du
-                  site afin d&apos;améliorer son contenu.
+                  PostHog mesure l&apos;audience et enregistre votre navigation
+                  afin d&apos;améliorer le site. Les champs du formulaire sont
+                  masqués dans ces enregistrements.
                 </p>
               </div>
 

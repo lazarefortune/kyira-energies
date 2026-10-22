@@ -44,9 +44,9 @@ export const landingContent: SiteContent = {
       "Dimensionnement selon vos besoins réels",
       "Accompagnement jusqu'à la mise en œuvre",
     ],
-    image: "/chaleur-illustration-01.jpg",
+    image: "/ventilation-toiture-alexander-grigorian-7396978.jpg",
     imageAlt:
-      "Intérieur d'un bâtiment tertiaire avec conduits de ventilation et installations industrielles.",
+      "Équipements et conduits de ventilation sur la toiture d'un bâtiment industriel.",
   },
 
   services: {
@@ -98,9 +98,9 @@ export const landingContent: SiteContent = {
     titleAccent: "chaleur valorisée",
     description:
       "Une démarche simple et lisible, pensée pour des décideurs qui souhaitent comprendre chaque étape.",
-    image: "/technician-inspecting-hvac-system.jpeg",
+    image: "/inspection-climatisation-kathleen-austin-kuhn-32497161.jpg",
     imageAlt:
-      "Deux techniciens en tenue de sécurité inspectent des installations frigorifiques et des réseaux de tuyauterie sur site.",
+      "Un technicien inspecte une unité extérieure de climatisation à l'aide d'une lampe.",
     steps: [
       {
         step: "01",
