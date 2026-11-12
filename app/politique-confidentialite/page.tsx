@@ -3,8 +3,9 @@ import Link from "next/link";
 
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
-import { PendingValue } from "@/components/ui/Skeleton";
 import { backArrowIcon } from "@/lib/icons";
+
+const CONTACT_EMAIL = "miame@kyira-energies.com";
 
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
@@ -39,23 +40,6 @@ function InfoRow({ label, value }: InfoRowProps) {
   return (
     <p>
       <span className="font-medium text-foreground">{label} :</span> {value}
-    </p>
-  );
-}
-
-function InfoRowPending({
-  label,
-  skeletonClassName,
-  pendingLabel,
-}: {
-  label: string;
-  skeletonClassName?: string;
-  pendingLabel?: string;
-}) {
-  return (
-    <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
-      <span className="font-medium text-foreground">{label} :</span>
-      <PendingValue className={skeletonClassName} label={pendingLabel} />
     </p>
   );
 }
@@ -131,10 +115,16 @@ export default function PolitiqueConfidentialitePage() {
                   label="Siège social"
                   value="5 Mail Martin Luther King, 95870 Bezons, France"
                 />
-                <InfoRowPending
+                <InfoRow
                   label="Adresse email de contact"
-                  skeletonClassName="w-48"
-                  pendingLabel="Adresse email de contact à confirmer"
+                  value={
+                    <a
+                      href={`mailto:${CONTACT_EMAIL}`}
+                      className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    >
+                      {CONTACT_EMAIL}
+                    </a>
+                  }
                 />
               </LegalSection>
 
@@ -319,16 +309,16 @@ export default function PolitiqueConfidentialitePage() {
                     droit à la portabilité, lorsque ce droit est applicable.
                   </li>
                 </ul>
-                <p className="flex flex-wrap items-center gap-x-1 gap-y-1.5">
-                  <span>
-                    Pour exercer vos droits, vous pouvez contacter KYIRA
-                    ENERGIES à l&apos;adresse suivante :
-                  </span>
-                  <PendingValue
-                    className="w-48"
-                    label="Adresse email pour l'exercice des droits à confirmer"
-                  />
-                  <span>.</span>
+                <p>
+                  Pour exercer vos droits, vous pouvez contacter KYIRA ENERGIES
+                  à l&apos;adresse suivante :{" "}
+                  <a
+                    href={`mailto:${CONTACT_EMAIL}`}
+                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  >
+                    {CONTACT_EMAIL}
+                  </a>
+                  .
                 </p>
                 <p>
                   Vous pouvez également introduire une réclamation auprès de la

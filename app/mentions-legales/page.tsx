@@ -3,13 +3,17 @@ import Link from "next/link";
 
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
-import { PendingValue } from "@/components/ui/Skeleton";
 import { backArrowIcon } from "@/lib/icons";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
   description: "Informations légales relatives au site KYIRA ENERGIES.",
 };
+
+const CONTACT_EMAIL = "miame@kyira-energies.com";
+
+const linkClassName =
+  "font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2";
 
 type LegalSectionProps = {
   title: string;
@@ -42,29 +46,9 @@ function InfoRow({ label, value }: InfoRowProps) {
   );
 }
 
-function InfoRowPending({
-  label,
-  skeletonClassName,
-  pendingLabel,
-}: {
-  label: string;
-  skeletonClassName?: string;
-  pendingLabel?: string;
-}) {
-  return (
-    <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
-      <span className="font-medium text-foreground">{label} :</span>
-      <PendingValue className={skeletonClassName} label={pendingLabel} />
-    </p>
-  );
-}
-
 function BackLink() {
   return (
-    <Link
-      href="/"
-      className="inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-    >
+    <Link href="/" className={`inline-flex items-center gap-1.5 text-sm ${linkClassName}`}>
       <Icon icon={backArrowIcon} size={16} strokeWidth={2} />
       Retour à l&apos;accueil
     </Link>
@@ -100,7 +84,8 @@ export default function MentionsLegalesPage() {
           <article className="mx-auto max-w-3xl">
             <BackLink />
             <p className="mt-4 text-sm text-muted">
-              Dernière mise à jour : <time dateTime="2026-10-22">22 octobre 2026</time>.
+              Dernière mise à jour :{" "}
+              <time dateTime="2026-11-13">13 novembre 2026</time>.
             </p>
 
             <div className="mt-10 space-y-10">
@@ -140,76 +125,70 @@ export default function MentionsLegalesPage() {
                 <p>
                   Pour toute demande concernant le site, vous pouvez utiliser le
                   formulaire de contact disponible sur la{" "}
-                  <Link
-                    href="/#contact"
-                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  >
+                  <Link href="/#contact" className={linkClassName}>
                     page d&apos;accueil
-                  </Link>
-                  .
+                  </Link>{" "}
+                  ou écrire à l&apos;adresse email ci-dessous.
                 </p>
-                <InfoRowPending
+                <InfoRow
                   label="Adresse email"
-                  skeletonClassName="w-48"
-                  pendingLabel="Adresse email à compléter"
-                />
-                <InfoRowPending
-                  label="Téléphone"
-                  skeletonClassName="w-36"
-                  pendingLabel="Numéro de téléphone à compléter"
+                  value={
+                    <a href={`mailto:${CONTACT_EMAIL}`} className={linkClassName}>
+                      {CONTACT_EMAIL}
+                    </a>
+                  }
                 />
               </LegalSection>
 
               <LegalSection title="Hébergement">
+                <p>
+                  Le site est hébergé par Netlify. Les services listés à la
+                  rubrique «&nbsp;Prestataires techniques&nbsp;» sont distincts
+                  de cet hébergement.
+                </p>
                 <InfoRow label="Nom de l'hébergeur" value="Netlify, Inc." />
                 <InfoRow
                   label="Adresse"
                   value="101 2nd Street, San Francisco, CA 94105, États-Unis"
                 />
                 <InfoRow
+                  label="Téléphone"
+                  value="+1 650 963 4977"
+                />
+                <InfoRow
                   label="Site web"
                   value={
-                    <a
-                      href="https://www.netlify.com/"
-                      className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                    >
+                    <a href="https://www.netlify.com/" className={linkClassName}>
                       www.netlify.com
                     </a>
                   }
-                />
-                <InfoRowPending
-                  label="Téléphone de l'hébergeur"
-                  skeletonClassName="w-36"
-                  pendingLabel="Numéro de téléphone de Netlify à confirmer"
                 />
               </LegalSection>
 
               <LegalSection title="Prestataires techniques">
                 <p>
-                  Les prestataires suivants interviennent dans le traitement et
-                  le stockage des données liées au fonctionnement du site :
+                  Les prestataires suivants interviennent dans le traitement
+                  lié au fonctionnement du site (formulaire, protection anti-bot
+                  et mesure d&apos;audience après consentement)&nbsp;:
                 </p>
                 <InfoRow
-                  label="PostHog (mesure d’audience et enregistrement des sessions)"
-                  value="PostHog, Inc., 2261 Market Street #4008, San Francisco, CA 94114, États-Unis"
-                />
-                <InfoRow
-                  label="Resend (acheminement des messages du formulaire)"
+                  label="Resend (transmission des demandes de contact)"
                   value="Plus Five Five, Inc. (Resend), 2261 Market Street #5039, San Francisco, CA 94114, États-Unis"
                 />
                 <InfoRow
                   label="Cloudflare Turnstile (protection contre les envois automatisés)"
                   value="Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis"
                 />
+                <InfoRow
+                  label="PostHog (mesure d’audience et Session Replay après consentement)"
+                  value="PostHog Inc., 2261 Market Street #4008, San Francisco, CA 94114, États-Unis"
+                />
               </LegalSection>
 
               <LegalSection title="Conception et développement du site">
                 <p>
                   Conception et développement :{" "}
-                  <a
-                    href="https://lazarefortune.com"
-                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  >
+                  <a href="https://lazarefortune.com" className={linkClassName}>
                     Lazare Fortune
                   </a>
                   .
@@ -234,79 +213,75 @@ export default function MentionsLegalesPage() {
               <LegalSection title="Crédits photographiques">
                 <p>
                   Photographie des trois aérations en tête de la page
-                  d&apos;accueil :{' '}
+                  d&apos;accueil :{" "}
                   <a
                     href="https://unsplash.com/fr/@elimendeinagella"
-                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className={linkClassName}
                   >
                     Elimende Inagella
-                  </a>{' '}
-                  sur{' '}
+                  </a>{" "}
+                  sur{" "}
                   <a
                     href="https://unsplash.com/fr/photos/photo-en-niveaux-de-gris-dun-cadre-metallique-rond-zx7VUt9txos"
-                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className={linkClassName}
                   >
                     Unsplash
                   </a>
-                  , utilisée sous{' '}
-                  <a
-                    href="https://unsplash.com/fr/licence"
-                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  >
+                  , utilisée sous{" "}
+                  <a href="https://unsplash.com/fr/licence" className={linkClassName}>
                     licence Unsplash
                   </a>
                   .
                 </p>
                 <p>
-                  Photographie de ventilation en toiture : {" "}
-                  <a href="https://www.pexels.com/photo/ventilation-system-on-roof-of-building-7396978/" className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                  Photographie de ventilation en toiture :{" "}
+                  <a
+                    href="https://www.pexels.com/photo/ventilation-system-on-roof-of-building-7396978/"
+                    className={linkClassName}
+                  >
                     Alexander Grigorian sur Pexels
                   </a>
                   , utilisée sous{" "}
-                  <a href="https://www.pexels.com/license/" className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                  <a href="https://www.pexels.com/license/" className={linkClassName}>
                     licence Pexels
                   </a>
                   .
                 </p>
                 <p>
-                  Photographie d’inspection d’une unité de climatisation : {" "}
-                  <a href="https://www.pexels.com/photo/technician-inspecting-outdoor-hvac-unit-32497161/" className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                  Photographie d&apos;inspection d&apos;une unité de
+                  climatisation :{" "}
+                  <a
+                    href="https://www.pexels.com/photo/technician-inspecting-outdoor-hvac-unit-32497161/"
+                    className={linkClassName}
+                  >
                     Kathleen Austin Kuhn sur Pexels
                   </a>
                   , utilisée sous{" "}
-                  <a href="https://www.pexels.com/license/" className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2">
+                  <a href="https://www.pexels.com/license/" className={linkClassName}>
                     licence Pexels
                   </a>
                   .
                 </p>
               </LegalSection>
 
-              <LegalSection title="Données personnelles">
-                <p>
-                  Les informations relatives aux données collectées, aux finalités
-                  des traitements, aux prestataires techniques et à vos droits
-                  sont détaillées dans notre{" "}
-                  <Link
-                    href="/politique-confidentialite"
-                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-                  >
-                    politique de confidentialité
-                  </Link>
-                  .
-                </p>
-              </LegalSection>
-
-              <LegalSection title="Cookies et mesure d'audience">
+              <LegalSection title="Données personnelles et cookies">
                 <p>
                   Les informations relatives aux cookies et au traitement des
                   données personnelles figurent dans la{" "}
                   <Link
                     href="/politique-confidentialite"
-                    className="font-medium text-primary underline-offset-2 transition-colors hover:text-primary-hover hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className={linkClassName}
                   >
                     politique de confidentialité
                   </Link>
                   .
+                </p>
+              </LegalSection>
+
+              <LegalSection title="Conditions générales de vente">
+                <p>
+                  Les conditions générales de vente de KYIRA ENERGIES sont
+                  communiquées sur demande et jointes à chaque devis.
                 </p>
               </LegalSection>
 
